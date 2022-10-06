@@ -1,0 +1,39 @@
+x = sin hacer
+i = ideas
+h = hecho
+-----------------
+
+
+x-descuento en venta
+x-movimiento de ingreso y egreso del sistema
+i-Cambiar vendedor por caja?
+x-caja = id_caja,fecha,id_venta,ingreso,egreso
+i-modulo de contabilidad y estadisticas
+i-Mostar ingresos y ¿egresos? por caja
+i-imprimir con ireport
+i-hacer ejectuble
+i-manual de usuario
+i-producto codigo barra = agregar codigo al producto en db y modificar donde deba
+¿?i-cargar stock de productos = form donde cargar la cantidad de productos y que se sumen a los existentes
+
+
+i-actualizar todos los precio de un mismo proveedor
+
+h-poder cambiar el precio desde comprasForm
+h-validar datos para que no se ingresen string en lugar de int
+h-en VenderForm buscar cliente, puede ser null
+h-modulo proveedores
+h-modulo clientes
+h-admin puede cambiar su user y pass
+h-nro orden en venta
+h-poder borrar item
+h-buscar en todos los modulos
+h-ranking
+h-limpiar desdpues de añadir en venta
+h-escribir id y que se escriba el nombre solo en venta
+h-jtable para la venta
+h-guardar ventas en db
+h-venta = ventas_resumen,ventas_detalle,productos(stock)
+h-poner logo a las ventanas principales
+h-mostrar ingresos
+h-mostrar egresos
