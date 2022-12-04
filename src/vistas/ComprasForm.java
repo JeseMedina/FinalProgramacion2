@@ -9,19 +9,18 @@ import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 import modelo.Compras;
-import modelo.ComprasDAO;
+import dao.ComprasDAO;
 import modelo.DetalleCompras;
 import modelo.Producto;
-import modelo.ProductoDAO;
+import dao.ProductoDAO;
 import modelo.Proveedor;
-import modelo.ProveedorDAO;
+import dao.ProveedorDAO;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Jesé
@@ -38,7 +37,7 @@ public class ComprasForm extends javax.swing.JInternalFrame {
     DetalleCompras dc = new DetalleCompras();
     Proveedor pr = new Proveedor();
     ProveedorDAO prdao = new ProveedorDAO();
-    
+
     DefaultTableModel modelo = new DefaultTableModel();
     int idp;
     int cantidad;
@@ -48,7 +47,7 @@ public class ComprasForm extends javax.swing.JInternalFrame {
     int idpr = 0;
 
     ImageIcon icon = new ImageIcon("");
-    
+
     public ComprasForm() {
         initComponents();
         this.setFrameIcon(icon);
@@ -58,7 +57,7 @@ public class ComprasForm extends javax.swing.JInternalFrame {
         n.setMinimum(0);
         txtCantidad.setModel(n);
     }
-    
+
     void fecha() {
         Calendar calendar = new GregorianCalendar();
         int anno = calendar.get(Calendar.YEAR);
@@ -67,7 +66,7 @@ public class ComprasForm extends javax.swing.JInternalFrame {
 
         txtFecha.setText("" + anno + "-" + mes + "-" + dia);
     }
-    
+
     void generarSerie() {
         String serie = cdao.nroSeriecompras();
         if (serie == null) {
@@ -78,7 +77,7 @@ public class ComprasForm extends javax.swing.JInternalFrame {
             txtSerie.setText("" + incrementar);
         }
     }
-    
+
     boolean esNumerico(String cadena) {
         try {
             Integer.parseInt(cadena);
@@ -111,7 +110,7 @@ public class ComprasForm extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtPrecio = new javax.swing.JTextField();
+        txtPrecioVenta = new javax.swing.JTextField();
         btnAgregar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         txtStock = new javax.swing.JTextField();
@@ -122,7 +121,8 @@ public class ComprasForm extends javax.swing.JInternalFrame {
         btnBuscarProveedor = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         txtProveedor = new javax.swing.JTextField();
-        btnActualizarPrecio = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        txtPrecioCompra = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
@@ -198,7 +198,7 @@ public class ComprasForm extends javax.swing.JInternalFrame {
 
         txtNombre.setEditable(false);
 
-        jLabel5.setText("Precio:");
+        jLabel5.setText("Precio Venta:");
 
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -226,22 +226,16 @@ public class ComprasForm extends javax.swing.JInternalFrame {
 
         txtProveedor.setEditable(false);
 
-        btnActualizarPrecio.setText("Actualizar");
-        btnActualizarPrecio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarPrecioActionPerformed(evt);
-            }
-        });
+        jLabel1.setText("Precio Compra:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
+                        .addGap(49, 49, 49)
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtCodigoP, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -251,40 +245,39 @@ public class ComprasForm extends javax.swing.JInternalFrame {
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGap(183, 183, 183)
+                                    .addComponent(btnBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
                                     .addComponent(jLabel3)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(txtPrecio, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtCodigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnActualizarPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(183, 183, 183)
-                                .addComponent(btnBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtPrecioCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtStock)
+                            .addComponent(txtNombre)
+                            .addComponent(txtCantidad, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))))
+                .addContainerGap(7, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -308,17 +301,19 @@ public class ComprasForm extends javax.swing.JInternalFrame {
                         .addComponent(jLabel4)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(btnActualizarPrecio))
+                    .addComponent(jLabel1)
+                    .addComponent(txtPrecioCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAgregar)
-                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addComponent(btnAgregar)
+                .addGap(18, 18, 18))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -353,7 +348,7 @@ public class ComprasForm extends javax.swing.JInternalFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
@@ -412,7 +407,7 @@ public class ComprasForm extends javax.swing.JInternalFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -440,8 +435,17 @@ public class ComprasForm extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBuscarProductoActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        agregarProducto();
-        limpiar();
+        if (txtCodigo.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Ingrese codigo de Producto");
+        } else if (txtCodigoP.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Ingrese DNI de Proveedor");
+        } else if (txtPrecioCompra.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Ingrese precio de Compra");
+        } else{
+            agregarProducto();
+            actualizarPrecio();
+            limpiar();
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -475,13 +479,14 @@ public class ComprasForm extends javax.swing.JInternalFrame {
             i = i - 1;
         }
     }
-    
+
     void limpiar() {
         txtCodigo.setText("");
         txtNombre.setText("");
         txtCantidad.setValue(0);
         txtStock.setText("");
-        txtPrecio.setText("");
+        txtPrecioVenta.setText("");
+        txtPrecioCompra.setText("");
     }
 
     void nuevo() {
@@ -493,7 +498,7 @@ public class ComprasForm extends javax.swing.JInternalFrame {
         txtCodigoP.setText("");
         txtProveedor.setText("");
     }
-    
+
     void actualizarStock() {
         for (int i = 0; i < modelo.getRowCount(); i++) {
             Producto pr = new Producto();
@@ -504,7 +509,7 @@ public class ComprasForm extends javax.swing.JInternalFrame {
             pdao.actualizarStock(s, idp);
         }
     }
-    
+
     private void btnBuscarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProveedorActionPerformed
         buscarProveedor();
     }//GEN-LAST:event_btnBuscarProveedorActionPerformed
@@ -512,10 +517,6 @@ public class ComprasForm extends javax.swing.JInternalFrame {
     private void menuEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEliminarActionPerformed
         eliminarItem();
     }//GEN-LAST:event_menuEliminarActionPerformed
-
-    private void btnActualizarPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarPrecioActionPerformed
-        actualizarPrecio();
-    }//GEN-LAST:event_btnActualizarPrecioActionPerformed
 
     void eliminarItem() {
         int row = tabla.getSelectedRow();
@@ -526,7 +527,7 @@ public class ComprasForm extends javax.swing.JInternalFrame {
             modelo.removeRow(tabla.getSelectedRow());
         }
     }
-    
+
     void guardarCompra() {
         String serie = txtSerie.getText();
         String fecha = txtFecha.getText();
@@ -538,7 +539,7 @@ public class ComprasForm extends javax.swing.JInternalFrame {
         c.setMonto(monto);
         cdao.guardarCompras(c);
     }
-    
+
     void guardarDetalle() {
         int idc = Integer.parseInt(cdao.idCompras());
         for (int i = 0; i < tabla.getRowCount(); i++) {
@@ -552,7 +553,7 @@ public class ComprasForm extends javax.swing.JInternalFrame {
             cdao.guardarDetalleCompras(dc);
         }
     }
-    
+
     void buscarProducto() {
         if (esNumerico(txtCodigo.getText())) {
             int id = Integer.parseInt(txtCodigo.getText());
@@ -562,7 +563,7 @@ public class ComprasForm extends javax.swing.JInternalFrame {
                 p = pdao.listarId(id);
                 if (p.getId() != 0) {
                     txtNombre.setText(p.getNombre());
-                    txtPrecio.setText("" + p.getPrecio());
+                    txtPrecioVenta.setText("" + p.getPrecio());
                     txtStock.setText("" + p.getStock());
                 } else {
                     JOptionPane.showMessageDialog(this, "Producto no registrado");
@@ -571,7 +572,7 @@ public class ComprasForm extends javax.swing.JInternalFrame {
             }
         }
     }
-    
+
     void buscarProveedor() {
         if (esNumerico(txtCodigoP.getText())) {
             int dni = Integer.parseInt(txtCodigoP.getText());
@@ -579,7 +580,7 @@ public class ComprasForm extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Debe ingresar DNI del Proveedor");
             } else {
                 pr = prdao.listarDni(dni);
-                if (pr.getDni()!= null) {
+                if (pr.getDni() != null) {
                     txtProveedor.setText(pr.getNombre());
                     idpr = pr.getId();
                 } else {
@@ -587,44 +588,44 @@ public class ComprasForm extends javax.swing.JInternalFrame {
                     txtCantidad.requestFocus();
                 }
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Debe ingresar DNI del Proveedor");
         }
     }
-    
+
     void agregarProducto() {
         double total;
 
         modelo = (DefaultTableModel) tabla.getModel();
         idp = p.getId();
         String nombre = txtNombre.getText();
-        precio = Double.parseDouble(txtPrecio.getText());
+        precio = Double.parseDouble(txtPrecioCompra.getText());
         cantidad = Integer.parseInt(txtCantidad.getValue().toString());
         int stock = Integer.parseInt(txtStock.getText());
         total = cantidad * precio;
         ArrayList lista = new ArrayList();
         try {
-                lista.add(idp);
-                lista.add(nombre);
-                lista.add(cantidad);
-                lista.add(precio);
-                lista.add(total);
-                Object[] ob = new Object[5];
-                ob[0] = lista.get(0);
-                ob[1] = lista.get(1);
-                ob[2] = lista.get(2);
-                ob[3] = lista.get(3);
-                ob[4] = lista.get(4);
-                modelo.addRow(ob);
-                tabla.setModel(modelo);
+            lista.add(idp);
+            lista.add(nombre);
+            lista.add(cantidad);
+            lista.add(precio);
+            lista.add(total);
+            Object[] ob = new Object[5];
+            ob[0] = lista.get(0);
+            ob[1] = lista.get(1);
+            ob[2] = lista.get(2);
+            ob[3] = lista.get(3);
+            ob[4] = lista.get(4);
+            modelo.addRow(ob);
+            tabla.setModel(modelo);
 
-                calcularTotal();
+            calcularTotal();
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(this, "Debe ingrear el codigo el producto");
         }
 
     }
-    
+
     void calcularTotal() {
         tpagar = 0;
         for (int i = 0; i < tabla.getRowCount(); i++) {
@@ -634,25 +635,24 @@ public class ComprasForm extends javax.swing.JInternalFrame {
         }
         txtTotal.setText("" + tpagar);
     }
-    
-    void actualizarPrecio(){
+
+    void actualizarPrecio() {
         int idp = Integer.parseInt(txtCodigo.getText());
-        double precio = Double.parseDouble(txtPrecio.getText());
-        
+        double precio = Double.parseDouble(txtPrecioVenta.getText());
+
         p.setId(idp);
         p.setPrecio(precio);
         pdao.actualizarPrecio(p);
-        JOptionPane.showMessageDialog(this, "Actualizacion de precio exitosa");
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualizarPrecio;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscarProducto;
     private javax.swing.JButton btnBuscarProveedor;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnComprar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -676,7 +676,8 @@ public class ComprasForm extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtCodigoP;
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtPrecio;
+    private javax.swing.JTextField txtPrecioCompra;
+    private javax.swing.JTextField txtPrecioVenta;
     private javax.swing.JTextField txtProveedor;
     private javax.swing.JTextField txtSerie;
     private javax.swing.JTextField txtStock;

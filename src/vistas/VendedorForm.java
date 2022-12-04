@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Vendedor;
-import modelo.VendedorDAO;
+import dao.VendedorDAO;
 
 /**
  *

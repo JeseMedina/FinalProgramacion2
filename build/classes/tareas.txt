@@ -2,32 +2,18 @@ x = sin hacer
 i = ideas
 h = hecho
 -----------------
-
 producto:
-producto codigo barra = agregar codigo al producto en db y modificar donde deba
-cargar stock de productos = form donde cargar la cantidad de productos y que se sumen a los existentes
-agregar precio de compra y de venta
-
-compra:
-Definir el precio de compra y venta
+Actualizar todos los precio de un mismo proveedor
 
 venta:
-descuento en venta
 listar solo el precio de venta
-
+cuanto paga y vuelto
 
 caja:
 Caja = id_caja,fecha,id_venta,ingreso,egreso
 Mostar ingresos y ¿egresos? por caja
 Movimiento de ingreso y egreso del sistema
 Cambiar vendedor por caja?
-
-i-modulo de contabilidad y estadisticas
-i-imprimir con ireport
-i-hacer ejectuble
-
-i-manual de usuario
-i-actualizar todos los precio de un mismo proveedor
 
 h-poder cambiar el precio desde comprasForm
 h-validar datos para que no se ingresen string en lugar de int
@@ -47,3 +33,4 @@ h-venta = ventas_resumen,ventas_detalle,productos(stock)
 h-poner logo a las ventanas principales
 h-mostrar ingresos
 h-mostrar egresos
+h-Definir el precio de compra

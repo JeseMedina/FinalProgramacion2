@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Cliente;
-import modelo.ClienteDAO;
+import dao.ClienteDAO;
 
 /**
  *
@@ -367,7 +367,7 @@ public class ClienteForm extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnFiltrarTodoActionPerformed
 
     void agregar() {
-        if (esNumerico(txtDni.toString()) && esNumerico(txtTel.toString())) {
+        if (esNumerico(txtDni.getText()) && esNumerico(txtTel.getText())) {
             String dni = txtDni.getText();
             String nombre = txtNombre.getText();
             String tel = txtTel.getText();
@@ -383,7 +383,7 @@ public class ClienteForm extends javax.swing.JInternalFrame {
     }
 
     void actualizar() {
-        if (esNumerico(txtDni.toString()) && esNumerico(txtTel.toString())) {
+        if (esNumerico(txtDni.getText()) && esNumerico(txtTel.getText())) {
             int fila = tabla.getSelectedRow();
             if (fila == -1) {
                 JOptionPane.showMessageDialog(this, "Debe seleccionar una fila");

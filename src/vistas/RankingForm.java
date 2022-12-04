@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import modelo.Producto;
 import modelo.Ranking;
-import modelo.RankingDAO;
+import dao.RankingDAO;
 
 /**
  *

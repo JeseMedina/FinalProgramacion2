@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Categoria;
-import modelo.CategoriaDAO;
+import dao.CategoriaDAO;
 
 /**
  *

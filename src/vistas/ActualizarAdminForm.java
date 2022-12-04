@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import modelo.Admin;
-import modelo.AdminDAO;
+import dao.AdminDAO;
 import modelo.Conexion;
 
 /**

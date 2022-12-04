@@ -9,12 +9,12 @@ import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 import modelo.Cliente;
-import modelo.ClienteDAO;
+import dao.ClienteDAO;
 import modelo.DetalleVentas;
 import modelo.Producto;
-import modelo.ProductoDAO;
+import dao.ProductoDAO;
 import modelo.Ventas;
-import modelo.VentasDAO;
+import dao.VentasDAO;
 
 /**
  *
@@ -52,6 +52,8 @@ public class VentasForm extends javax.swing.JInternalFrame {
         n.setMinimum(0);
         txtCantidad.setModel(n);
         txtVendedor.setText(Login.nombreVendedor);
+        txtCodigoC.setText("0");
+        buscarCliente();
     }
 
     void fecha() {
@@ -460,8 +462,9 @@ public class VentasForm extends javax.swing.JInternalFrame {
         txtFecha.setText("");
         txtSerie.setText("");
         txtTotal.setText("");
-        txtCodigoC.setText("");
         txtCliente.setText("");
+        txtCodigoC.setText("0");
+        buscarCliente();
     }
 
     void actualizarStock() {
@@ -477,8 +480,12 @@ public class VentasForm extends javax.swing.JInternalFrame {
 
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        agregarProducto();
-        limpiar();
+        if (txtCodigo.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Ingrese codigo de Producto");
+        } else {
+            agregarProducto();
+            limpiar();
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProductoActionPerformed
@@ -621,7 +628,7 @@ public class VentasForm extends javax.swing.JInternalFrame {
                     txtCantidad.requestFocus();
                 }
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Debe ingresar DNI del Cliente");
         }
     }

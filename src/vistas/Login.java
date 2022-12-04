@@ -12,10 +12,10 @@ import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import modelo.Admin;
-import modelo.AdminDAO;
+import dao.AdminDAO;
 import modelo.Conexion;
 import modelo.Vendedor;
-import modelo.VendedorDAO;
+import dao.VendedorDAO;
 
 /**
  *

@@ -11,7 +11,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import modelo.Egresos;
-import modelo.EgresosDAO;
+import dao.EgresosDAO;
 
 /**
  *

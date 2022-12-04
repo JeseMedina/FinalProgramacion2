@@ -3,43 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelo;
+package dao;
 
-import java.util.List;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
+import modelo.Conexion;
+import modelo.Proveedor;
 
 /**
  *
  * @author Jesé
  */
-public class ProductoDAO implements CRUD {
+public class ProveedorDAO implements CRUD {
 
     Connection con;
     Conexion cn = new Conexion();
-    PreparedStatement ps;
+    java.sql.PreparedStatement ps;
     ResultSet rs;
-
-    public int actualizarStock(int cant, int idp) {
-        int r = 0;
-        String sql = "update producto set stock=? where idProducto=?";
-        try {
-            con = cn.Conectar();
-            ps = con.prepareStatement(sql);
-            ps.setInt(1, cant);
-            ps.setInt(2, idp);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return r;
-    }
-
-    public Producto listarId(int id) {
-        Producto p = new Producto();
-        String sql = "select * from producto where idProducto=?";
+    
+    public Proveedor listarDni(int id) {
+        Proveedor p = new Proveedor();
+        String sql = "select * from proveedor where dni=?";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
@@ -47,32 +33,32 @@ public class ProductoDAO implements CRUD {
             rs = ps.executeQuery();
             while (rs.next()) {
                 p.setId(rs.getInt(1));
-                p.setNombre(rs.getString(2));
-                p.setPrecio(rs.getDouble(3));
-                p.setStock(rs.getInt(4));
-                p.setCategoria(rs.getString(5));
+                p.setDni(rs.getString(2));
+                p.setNombre(rs.getString(3));
+                p.setTel(rs.getString(4));
+                p.setRazonSocial(rs.getString(5));
             }
         } catch (Exception e) {
             System.out.println(e);
         }
         return p;
     }
-
-    public List listarIdFiltro(int id) {
-        List<Producto> lista = new ArrayList();
-        String sql = "select * from producto where idProducto=?";
+    
+    public List listarDniFiltro(int dni) {
+        List<Proveedor> lista = new ArrayList<>();
+        String sql = "select * from proveedor where dni=?";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setInt(1, dni);
             rs = ps.executeQuery();
             while (rs.next()) {
-                Producto p = new Producto();
+                Proveedor p = new Proveedor();
                 p.setId(rs.getInt(1));
-                p.setNombre(rs.getString(2));
-                p.setPrecio(rs.getDouble(3));
-                p.setStock(rs.getInt(4));
-                p.setCategoria(rs.getString(5));
+                p.setDni(rs.getString(2));
+                p.setNombre(rs.getString(3));
+                p.setTel(rs.getString(4));
+                p.setRazonSocial(rs.getString(5));
                 lista.add(p);
             }
         } catch (Exception e) {
@@ -80,22 +66,45 @@ public class ProductoDAO implements CRUD {
         }
         return lista;
     }
-
+    
     public List listarNombre(String nombre) {
-        List<Producto> lista = new ArrayList();
+        List<Proveedor> lista = new ArrayList<>();
         String filtro = "%" + nombre + "%";
-        String sql = "select * from producto where nombre like" + '"' + filtro + '"';
+        String sql = "select * from proveedor where nombre like" + '"' + filtro + '"';
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                Producto p = new Producto();
+                Proveedor p = new Proveedor();
                 p.setId(rs.getInt(1));
-                p.setNombre(rs.getString(2));
-                p.setPrecio(rs.getDouble(3));
-                p.setStock(rs.getInt(4));
-                p.setCategoria(rs.getString(5));
+                p.setDni(rs.getString(2));
+                p.setNombre(rs.getString(3));
+                p.setTel(rs.getString(4));
+                p.setRazonSocial(rs.getString(5));
+                lista.add(p);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return lista;
+    }
+    
+    public List listarRazonSocial(String razon) {
+        List<Proveedor> lista = new ArrayList<>();
+        String filtro = "%" + razon + "%";
+        String sql = "select * from proveedor where razonSocial like" + '"' + filtro + '"';
+        try {
+            con = cn.Conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Proveedor p = new Proveedor();
+                p.setId(rs.getInt(1));
+                p.setDni(rs.getString(2));
+                p.setNombre(rs.getString(3));
+                p.setTel(rs.getString(4));
+                p.setRazonSocial(rs.getString(5));
                 lista.add(p);
             }
         } catch (Exception e) {
@@ -106,19 +115,19 @@ public class ProductoDAO implements CRUD {
 
     @Override
     public List Listar() {
-        List<Producto> lista = new ArrayList<>();
-        String sql = "select * from producto";
+        List<Proveedor> lista = new ArrayList<>();
+        String sql = "select * from proveedor";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                Producto p = new Producto();
+                Proveedor p = new Proveedor();
                 p.setId(rs.getInt(1));
-                p.setNombre(rs.getString(2));
-                p.setPrecio(rs.getDouble(3));
-                p.setStock(rs.getInt(4));
-                p.setCategoria(rs.getString(5));
+                p.setDni(rs.getString(2));
+                p.setNombre(rs.getString(3));
+                p.setTel(rs.getString(4));
+                p.setRazonSocial(rs.getString(5));
                 lista.add(p);
             }
         } catch (Exception e) {
@@ -130,7 +139,7 @@ public class ProductoDAO implements CRUD {
     @Override
     public int add(Object[] o) {
         int r = 0;
-        String sql = "insert into producto(nombre,precio,stock,categoria)values(?,?,?,?)";
+        String sql = "insert into proveedor(dni,nombre,tel,razonSocial)values(?,?,?,?)";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
@@ -148,7 +157,7 @@ public class ProductoDAO implements CRUD {
     @Override
     public int actualizar(Object[] o) {
         int r = 0;
-        String sql = "update producto set nombre=?,precio=?,stock=?,categoria=? where idProducto=?";
+        String sql = "update proveedor set dni=?,nombre=?,tel=?,razonSocial=? where idProveedor=?";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
@@ -163,25 +172,10 @@ public class ProductoDAO implements CRUD {
         }
         return r;
     }
-    public int actualizarPrecio(Producto p) {
-        Producto producto = new Producto();
-        int r = 0;
-        String sql = "update producto set precio=? where idProducto=?";
-        try {
-            con = cn.Conectar();
-            ps = con.prepareStatement(sql);
-            ps.setDouble(1, p.getPrecio());
-            ps.setInt(2,p.getId());
-            r = ps.executeUpdate();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return r;
-    }
 
     @Override
     public void eliminar(int id) {
-        String sql = "delete from producto where idProducto=?";
+        String sql = "delete from proveedor where idProveedor=?";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);

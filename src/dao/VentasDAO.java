@@ -3,27 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelo;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
+import modelo.Conexion;
+import modelo.DetalleVentas;
+import modelo.Ventas;
 
 /**
  *
  * @author Jesé
  */
-public class ComprasDAO implements CRUD{
+public class VentasDAO implements CRUD{
     Conexion cn = new Conexion();
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
     int r = 0;
     
-    public String nroSeriecompras(){
+    public String nroSerieventas(){
         String serie = "";
-        String sql = "select max(numeroSerie) from compras";
+        String sql = "select max(numeroSerie) from ventas";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
@@ -37,9 +40,9 @@ public class ComprasDAO implements CRUD{
         return serie;
     }
     
-    public String idCompras(){
+    public String idVentas(){
         String idv = "";
-        String sql = "select max(idCompra) from compras";
+        String sql = "select max(idVenta) from ventas";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
@@ -53,16 +56,17 @@ public class ComprasDAO implements CRUD{
         return idv;
     }
     
-    public int guardarCompras(Compras p){
-        Compras compras = new Compras();
-        String sql = "insert into compras(idProveedor,numeroSerie,FechaCompras,monto) values(?,?,?,?)";
+    public int guardarVentas(Ventas v){
+        Ventas ventas = new Ventas();
+        String sql = "insert into ventas(idVendedor,idCliente,numeroSerie,FechaVentas,monto) values(?,?,?,?,?)";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
-            ps.setInt(1, p.getIdProveedor());
-            ps.setString(2, p.getSerie());
-            ps.setString(3, p.getFecha());
-            ps.setDouble(4, p.getMonto());
+            ps.setInt(1, v.getIdVendedor());
+            ps.setInt(2, v.getIdCliente());
+            ps.setString(3, v.getSerie());
+            ps.setString(4, v.getFecha());
+            ps.setDouble(5, v.getMonto());
             r = ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
@@ -70,22 +74,22 @@ public class ComprasDAO implements CRUD{
         return r;
     }
     
-    public int guardarDetalleCompras(DetalleCompras dc){
-        String sql = "insert into detallecompra(idCompra,idProducto,cantidad,precioCompra) values(?,?,?,?)";
+    public int guardarDetalleVentas(DetalleVentas dv){
+        String sql = "insert into detalleventa(idVenta,idProducto,cantidad,precioVenta) values(?,?,?,?)";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
-            ps.setInt(1, dc.getIdCompra());
-            ps.setInt(2, dc.getIdProducto());
-            ps.setInt(3, dc.getCantidad());
-            ps.setDouble(4, dc.getPrecompra());
+            ps.setInt(1, dv.getIdventa());
+            ps.setInt(2, dv.getIdProducto());
+            ps.setInt(3, dv.getCantidad());
+            ps.setDouble(4, dv.getPreventa());
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
         }
         return r;
     }
-    
+
     @Override
     public List Listar() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
