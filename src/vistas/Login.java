@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import modelo.Admin;
 import dao.AdminDAO;
-import modelo.Conexion;
+import Conexion.Conexion;
 import modelo.Vendedor;
 import dao.VendedorDAO;
 

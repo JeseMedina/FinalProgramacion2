@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import modelo.Admin;
 import dao.AdminDAO;
-import modelo.Conexion;
+import Conexion.Conexion;
 
 /**
  *

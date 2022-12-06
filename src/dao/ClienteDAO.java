@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.Cliente;
-import modelo.Conexion;
+import Conexion.Conexion;
 
 /**
  *

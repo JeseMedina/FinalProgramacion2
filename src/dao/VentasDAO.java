@@ -9,7 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import modelo.Conexion;
+import Conexion.Conexion;
 import modelo.DetalleVentas;
 import modelo.Ventas;
 

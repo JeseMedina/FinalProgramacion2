@@ -11,7 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import modelo.Categoria;
-import modelo.Conexion;
+import Conexion.Conexion;
 
 /**
  *

@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 import modelo.Compras;
-import modelo.Conexion;
+import Conexion.Conexion;
 import modelo.DetalleCompras;
 
 /**

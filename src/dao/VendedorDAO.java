@@ -10,7 +10,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import modelo.Conexion;
+import Conexion.Conexion;
 import modelo.Vendedor;
 
 /**

@@ -5,10 +5,6 @@ h = hecho
 producto:
 Actualizar todos los precio de un mismo proveedor
 
-venta:
-listar solo el precio de venta
-cuanto paga y vuelto
-
 caja:
 Caja = id_caja,fecha,id_venta,ingreso,egreso
 Mostar ingresos y ¿egresos? por caja
@@ -34,3 +30,4 @@ h-poner logo a las ventanas principales
 h-mostrar ingresos
 h-mostrar egresos
 h-Definir el precio de compra
+h-cuanto paga y vuelto
