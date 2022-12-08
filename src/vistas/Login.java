@@ -10,7 +10,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 import modelo.Admin;
 import dao.AdminDAO;
 import Conexion.Conexion;
@@ -35,11 +34,11 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../img/cart.png")));
         this.setLocationRelativeTo(null);
-        //txtContrasena.setText("12345678");
-        //txtUsuario.setText("jese");
-        txtRol.setSelectedIndex(1);
-        txtContrasena.setText("admin");
-        txtUsuario.setText("admin");
+        txtContrasena.setText("12345678");
+        txtUsuario.setText("jese");
+        //txtRol.setSelectedIndex(1);
+        //txtContrasena.setText("admin");
+        //txtUsuario.setText("admin");
     }
 
     Connection con;
@@ -50,6 +49,7 @@ public class Login extends javax.swing.JFrame {
     public static String nombreVendedor;
     public static int idVendedor;
     public static String tipo;
+    public static String nCaja;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -68,6 +68,8 @@ public class Login extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtRol = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
+        txtCaja = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -95,6 +97,8 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setText("N° Caja:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -103,18 +107,19 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnIngresar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtContrasena)
                             .addComponent(txtUsuario)
-                            .addComponent(txtRol, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtRol, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtCaja))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -132,7 +137,11 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnIngresar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
@@ -154,6 +163,7 @@ public class Login extends javax.swing.JFrame {
         txtContrasena.setText("");
         txtUsuario.setText("");
         txtRol.setSelectedIndex(0);
+        txtCaja.setText("");
     }
     
     public void validar() {
@@ -164,9 +174,14 @@ public class Login extends javax.swing.JFrame {
             txtUsuario.requestFocus();
         } else {
             if (txtRol.getSelectedItem().toString().equals("Vendedor")) {
+                if (txtCaja.getText().equals("")){
+                    JOptionPane.showMessageDialog(this, "Ingrese numero de caja");
+                    return;
+                }
                 ev = vdao.ValidarVendedor(contrasena, user);
                 if (ev.getUser() != null && ev.getDni() != null) {
                     tipo = "vendedor";
+                    nCaja = txtCaja.getText();
                     Principal p = new Principal();
                     p.setVisible(true);
                     dispose();
@@ -231,6 +246,8 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JTextField txtCaja;
     private javax.swing.JPasswordField txtContrasena;
     private javax.swing.JComboBox<String> txtRol;
     private javax.swing.JTextField txtUsuario;

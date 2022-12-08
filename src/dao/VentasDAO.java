@@ -57,12 +57,11 @@ public class VentasDAO implements CRUD{
     }
     
     public int guardarVentas(Ventas v){
-        Ventas ventas = new Ventas();
-        String sql = "insert into ventas(idVendedor,idCliente,numeroSerie,FechaVentas,monto) values(?,?,?,?,?)";
+        String sql = "insert into ventas(idCaja,idCliente,numeroSerie,FechaVentas,monto) values(?,?,?,?,?)";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
-            ps.setInt(1, v.getIdVendedor());
+            ps.setInt(1, v.getIdCaja());
             ps.setInt(2, v.getIdCliente());
             ps.setString(3, v.getSerie());
             ps.setString(4, v.getFecha());

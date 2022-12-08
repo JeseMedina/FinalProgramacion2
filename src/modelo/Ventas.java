@@ -12,7 +12,7 @@ package modelo;
 public class Ventas {
 
     int id;
-    int idVendedor;
+    int idCaja;
     int idCliente;
     String serie;
     String fecha;
@@ -21,9 +21,9 @@ public class Ventas {
     public Ventas() {
     }
 
-    public Ventas(int id, int idVendedor, int idCliente, String serie, String fecha, double monto) {
+    public Ventas(int id, int idCaja, int idCliente, String serie, String fecha, double monto) {
         this.id = id;
-        this.idVendedor = idVendedor;
+        this.idCaja = idCaja;
         this.idCliente = idCliente;
         this.serie = serie;
         this.fecha = fecha;
@@ -38,12 +38,12 @@ public class Ventas {
         this.id = id;
     }
 
-    public int getIdVendedor() {
-        return idVendedor;
+    public int getIdCaja() {
+        return idCaja;
     }
 
-    public void setIdVendedor(int idVendedor) {
-        this.idVendedor = idVendedor;
+    public void setIdCaja(int idCaja) {
+        this.idCaja = idCaja;
     }
 
     public int getIdCliente() {

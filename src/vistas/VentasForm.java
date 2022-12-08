@@ -1,5 +1,6 @@
 package vistas;
 
+import dao.CajaDAO;
 import java.awt.HeadlessException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -15,6 +16,10 @@ import modelo.Producto;
 import dao.ProductoDAO;
 import modelo.Ventas;
 import dao.VentasDAO;
+import modelo.CajaVendedor;
+import dao.CajaVendedorDAO;
+import modelo.Caja;
+import dao.CajaDAO;
 
 /**
  *
@@ -32,6 +37,11 @@ public class VentasForm extends javax.swing.JInternalFrame {
     DetalleVentas dv = new DetalleVentas();
     Cliente c = new Cliente();
     ClienteDAO cdao = new ClienteDAO();
+    CajaVendedor cv = new CajaVendedor();
+    CajaVendedorDAO cvdao = new CajaVendedorDAO();
+    Caja ca = new Caja();
+    CajaDAO caDAO = new CajaDAO();
+    
 
     DefaultTableModel modelo = new DefaultTableModel();
     int idp;
@@ -51,9 +61,31 @@ public class VentasForm extends javax.swing.JInternalFrame {
         SpinnerNumberModel n = new SpinnerNumberModel();
         n.setMinimum(0);
         txtCantidad.setModel(n);
-        txtVendedor.setText(Login.nombreVendedor);
+        if (Login.nombreVendedor == null){
+            txtVendedor.setText("Admin");
+        } else {
+            txtVendedor.setText(Login.nombreVendedor);
+        }
+        txtCaja.setText(Login.nCaja);
         txtCodigoC.setText("0");
         buscarCliente();
+        abrirCaja();
+    }
+    
+    
+    void abrirCaja(){
+        int idCaja = caDAO.listarId(Integer.parseInt(txtCaja.getText()));
+        
+        cv.setIdCaja(idCaja);
+        cv.setIdVendedor(Login.idVendedor);
+        cv.setFecha(txtFecha.getText());
+        
+        if (cvdao.cajaAbierta(cv)){
+        } else {
+            cvdao.abrirCaja(cv);
+        }
+        
+        
     }
 
     void fecha() {
@@ -98,6 +130,8 @@ public class VentasForm extends javax.swing.JInternalFrame {
         txtVendedor = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtSerie = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        txtCaja = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
@@ -163,6 +197,11 @@ public class VentasForm extends javax.swing.JInternalFrame {
         txtSerie.setEditable(false);
         txtSerie.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
 
+        jLabel14.setText("N° Caja:");
+
+        txtCaja.setEditable(false);
+        txtCaja.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -172,10 +211,14 @@ public class VentasForm extends javax.swing.JInternalFrame {
                 .addComponent(jLabel10)
                 .addGap(18, 18, 18)
                 .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtCaja, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -192,7 +235,9 @@ public class VentasForm extends javax.swing.JInternalFrame {
                     .addComponent(txtVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
                     .addComponent(txtSerie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel14)
+                    .addComponent(txtCaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -247,7 +292,7 @@ public class VentasForm extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -260,7 +305,16 @@ public class VentasForm extends javax.swing.JInternalFrame {
                                 .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtPrecio))
+                            .addComponent(txtPrecio)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCodigoC, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -273,14 +327,8 @@ public class VentasForm extends javax.swing.JInternalFrame {
                                     .addComponent(txtStock))
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCodigoC, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -586,12 +634,12 @@ public class VentasForm extends javax.swing.JInternalFrame {
             idc = c.getId();
         }
 
-        int idv = Login.idVendedor;
+        String idv = Login.nCaja;
         String serie = txtSerie.getText();
         String fecha = txtFecha.getText();
         double monto = tpagar;
 
-        v.setIdVendedor(idv);
+        v.setIdCaja(Integer.parseInt(idv));
         v.setIdCliente(idc);
         v.setSerie(serie);
         v.setFecha(fecha);
@@ -710,6 +758,7 @@ public class VentasForm extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -726,6 +775,7 @@ public class VentasForm extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem menuEliminar;
     private javax.swing.JTable tabla;
+    private javax.swing.JTextField txtCaja;
     private javax.swing.JSpinner txtCantidad;
     private javax.swing.JTextField txtCliente;
     private javax.swing.JTextField txtCodigo;

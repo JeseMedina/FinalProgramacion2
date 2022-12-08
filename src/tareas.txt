@@ -5,11 +5,27 @@ h = hecho
 producto:
 Actualizar todos los precio de un mismo proveedor
 
-caja:
-Caja = id_caja,fecha,id_venta,ingreso,egreso
-Mostar ingresos y ¿egresos? por caja
-Movimiento de ingreso y egreso del sistema
-Cambiar vendedor por caja?
+
+LA CAJA SE DEBERIA ABRIR EN VENTA Y COMPRA
+
+-----------------
+caja = idcaja
+caja_vendedor = idCaja_vendedor,id_caja,id_vendedor,fecha
+vendedor = idvendedor
+ventas = idventa,idcaja,fecha
+flujoCaja = idFlujoCaja,idCaja,fecha,inicial,ingreso,egreso,venta,compra,total
+detalleFljoCaja = iddetalleCaja, idFLujoCaja, ingreso, egreso, descripcion.
+
+login: elejir caja. idvendedor se carga en caja_vendedor
+ventas: cambiar idvendedor por idcaja
+
+
+
+
+
+
+-----------------
+
 
 h-poder cambiar el precio desde comprasForm
 h-validar datos para que no se ingresen string en lugar de int
