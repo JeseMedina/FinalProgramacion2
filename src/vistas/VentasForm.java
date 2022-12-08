@@ -16,10 +16,12 @@ import modelo.Producto;
 import dao.ProductoDAO;
 import modelo.Ventas;
 import dao.VentasDAO;
+/*
 import modelo.CajaVendedor;
 import dao.CajaVendedorDAO;
 import modelo.Caja;
 import dao.CajaDAO;
+*/
 
 /**
  *
@@ -37,10 +39,10 @@ public class VentasForm extends javax.swing.JInternalFrame {
     DetalleVentas dv = new DetalleVentas();
     Cliente c = new Cliente();
     ClienteDAO cdao = new ClienteDAO();
-    CajaVendedor cv = new CajaVendedor();
+    /*CajaVendedor cv = new CajaVendedor();
     CajaVendedorDAO cvdao = new CajaVendedorDAO();
     Caja ca = new Caja();
-    CajaDAO caDAO = new CajaDAO();
+    CajaDAO caDAO = new CajaDAO();*/
     
 
     DefaultTableModel modelo = new DefaultTableModel();
@@ -69,11 +71,11 @@ public class VentasForm extends javax.swing.JInternalFrame {
         txtCaja.setText(Login.nCaja);
         txtCodigoC.setText("0");
         buscarCliente();
-        abrirCaja();
+        //abrirCaja();
     }
     
     
-    void abrirCaja(){
+    /*void abrirCaja(){
         int idCaja = caDAO.listarId(Integer.parseInt(txtCaja.getText()));
         
         cv.setIdCaja(idCaja);
@@ -83,10 +85,9 @@ public class VentasForm extends javax.swing.JInternalFrame {
         if (cvdao.cajaAbierta(cv)){
         } else {
             cvdao.abrirCaja(cv);
-        }
-        
-        
+        } 
     }
+*/
 
     void fecha() {
         Calendar calendar = new GregorianCalendar();

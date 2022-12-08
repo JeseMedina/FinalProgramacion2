@@ -182,11 +182,12 @@ public class Login extends javax.swing.JFrame {
                 if (ev.getUser() != null && ev.getDni() != null) {
                     tipo = "vendedor";
                     nCaja = txtCaja.getText();
+                    nombreVendedor = ev.getNombre();
+                    idVendedor = ev.getId();
                     Principal p = new Principal();
                     p.setVisible(true);
                     dispose();
-                    nombreVendedor = ev.getNombre();
-                    idVendedor = ev.getId();
+                    
                 } else {
                     JOptionPane.showMessageDialog(this, "Usuario o Contraseña incorrectos");
                     txtUsuario.requestFocus();

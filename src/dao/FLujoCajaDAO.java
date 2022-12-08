@@ -11,13 +11,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import modelo.CajaVendedor;
+import modelo.FlujoCaja;
 
 /**
  *
  * @author Jesé
  */
-public class CajaVendedorDAO implements CRUD {
+public class FlujoCajaDAO implements CRUD {
 
     Connection con;
     Conexion cn = new Conexion();
@@ -25,33 +25,35 @@ public class CajaVendedorDAO implements CRUD {
     ResultSet rs;
     int r = 0;
 
-    public boolean cajaAbierta(CajaVendedor cv) {
-        String sql = "select idcaja_vendedor from cajavendedor where idCaja=? and idVendedor=? and fecha=?";
+    public boolean cajaAbierta(FlujoCaja fc) {
+        String sql = "select idFlujoCaja from flujocaja where idCaja=? and idVendedor=? and fecha=?";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
-            ps.setInt(1, cv.getIdCaja());
-            ps.setInt(2, cv.getIdVendedor());
-            ps.setString(3, cv.getFecha());
+            ps.setInt(1, fc.getIdCaja());
+            ps.setInt(2, fc.getIdVendedor());
+            ps.setString(3, fc.getFecha());
+            
             rs = ps.executeQuery();
             while (rs.next()) {
                 return true;
             }
-            
+
         } catch (Exception e) {
             System.out.println(e);
         }
         return false;
     }
 
-    public int abrirCaja(CajaVendedor cv) {
-        String sql = "insert into cajavendedor(idCaja,idVendedor,fecha) values(?,?,?)";
+    public int abrirCaja(FlujoCaja fc) {
+        String sql = "insert into flujocaja(idCaja,idVendedor,fecha,inicial) values(?,?,?,?)";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
-            ps.setInt(1, cv.getIdCaja());
-            ps.setInt(2, cv.getIdVendedor());
-            ps.setString(3, cv.getFecha());
+            ps.setInt(1, fc.getIdCaja());
+            ps.setInt(2, fc.getIdVendedor());
+            ps.setString(3, fc.getFecha());
+            ps.setDouble(4, fc.getInicial());
             r = ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
@@ -61,19 +63,19 @@ public class CajaVendedorDAO implements CRUD {
 
     @Override
     public List Listar() {
-        List<CajaVendedor> lista = new ArrayList<>();
-        String sql = "select * from cajavendedor";
+        List<FlujoCaja> lista = new ArrayList<>();
+        String sql = "select * from flujoCaja";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                CajaVendedor cv = new CajaVendedor();
-                cv.setIdCajaVendedor(rs.getInt(1));
-                cv.setIdCaja(rs.getInt(2));
-                cv.setIdVendedor(rs.getInt(3));
-                cv.setFecha(rs.getString((4)));
-                lista.add(cv);
+                FlujoCaja fc = new FlujoCaja();
+                fc.setIdFLujoCaja(rs.getInt(1));
+                fc.setIdCaja(rs.getInt(2));
+                fc.setIdVendedor(rs.getInt(3));
+                fc.setFecha(rs.getString((4)));
+                lista.add(fc);
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -83,19 +85,7 @@ public class CajaVendedorDAO implements CRUD {
 
     @Override
     public int add(Object[] o) {
-        int r = 0;
-        String sql = "insert int cajavendedor(idcaja,idvendedor,fecha) values(?,?,?)";
-        try {
-            con = cn.Conectar();
-            ps = con.prepareStatement(sql);
-            ps.setObject(1, o[0]);
-            ps.setObject(2, o[1]);
-            ps.setObject(3, o[2]);
-            r = ps.executeUpdate();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return r;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
