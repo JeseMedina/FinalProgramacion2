@@ -6,11 +6,11 @@
 package vistas;
 
 import java.util.List;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Vendedor;
 import dao.VendedorDAO;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -26,7 +26,6 @@ public class VendedorForm extends javax.swing.JInternalFrame {
 
     DefaultTableModel modelo = new DefaultTableModel();
     int id;
-
     ImageIcon icon = new ImageIcon("");
 
     public VendedorForm() {

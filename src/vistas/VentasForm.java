@@ -1,11 +1,9 @@
 package vistas;
 
-import dao.CajaDAO;
 import java.awt.HeadlessException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
@@ -16,6 +14,7 @@ import modelo.Producto;
 import dao.ProductoDAO;
 import modelo.Ventas;
 import dao.VentasDAO;
+import javax.swing.ImageIcon;
 /*
 import modelo.CajaVendedor;
 import dao.CajaVendedorDAO;
@@ -39,10 +38,6 @@ public class VentasForm extends javax.swing.JInternalFrame {
     DetalleVentas dv = new DetalleVentas();
     Cliente c = new Cliente();
     ClienteDAO cdao = new ClienteDAO();
-    /*CajaVendedor cv = new CajaVendedor();
-    CajaVendedorDAO cvdao = new CajaVendedorDAO();
-    Caja ca = new Caja();
-    CajaDAO caDAO = new CajaDAO();*/
     
 
     DefaultTableModel modelo = new DefaultTableModel();
@@ -54,7 +49,7 @@ public class VentasForm extends javax.swing.JInternalFrame {
     int idc = 0;
 
     ImageIcon icon = new ImageIcon("");
-
+    
     public VentasForm() {
         initComponents();
         this.setFrameIcon(icon);
@@ -71,23 +66,7 @@ public class VentasForm extends javax.swing.JInternalFrame {
         txtCaja.setText(Login.nCaja);
         txtCodigoC.setText("0");
         buscarCliente();
-        //abrirCaja();
     }
-    
-    
-    /*void abrirCaja(){
-        int idCaja = caDAO.listarId(Integer.parseInt(txtCaja.getText()));
-        
-        cv.setIdCaja(idCaja);
-        cv.setIdVendedor(Login.idVendedor);
-        cv.setFecha(txtFecha.getText());
-        
-        if (cvdao.cajaAbierta(cv)){
-        } else {
-            cvdao.abrirCaja(cv);
-        } 
-    }
-*/
 
     void fecha() {
         Calendar calendar = new GregorianCalendar();
@@ -511,7 +490,7 @@ public class VentasForm extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        pack();
+        setBounds(0, 0, 567, 489);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed

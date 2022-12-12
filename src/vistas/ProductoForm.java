@@ -6,13 +6,13 @@
 package vistas;
 
 import java.util.List;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Categoria;
 import dao.CategoriaDAO;
 import modelo.Producto;
 import dao.ProductoDAO;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -30,7 +30,6 @@ public class ProductoForm extends javax.swing.JInternalFrame {
 
     DefaultTableModel modelo = new DefaultTableModel();
     int id;
-
     ImageIcon icon = new ImageIcon("");
 
     public ProductoForm() {
@@ -413,7 +412,7 @@ public class ProductoForm extends javax.swing.JInternalFrame {
             ob[2] = stock;
             ob[3] = categoria;
             dao.add(ob);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Algunos campos solo reciben datos numericos");
         }
     }
@@ -437,7 +436,7 @@ public class ProductoForm extends javax.swing.JInternalFrame {
                 ob[4] = id;
                 dao.actualizar(ob);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Algunos campos solo reciben datos numericos");
         }
     }

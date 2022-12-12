@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import modelo.Admin;
 import dao.AdminDAO;
 import Conexion.Conexion;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -24,9 +25,11 @@ public class ActualizarAdminForm extends javax.swing.JInternalFrame {
      */
     AdminDAO adao = new AdminDAO();
     Admin a = new Admin();
+    ImageIcon icon = new ImageIcon("");
     
     public ActualizarAdminForm() {
         initComponents();
+        this.setFrameIcon(icon);
     }
 
     Connection con;

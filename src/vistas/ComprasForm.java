@@ -4,7 +4,6 @@ import java.awt.HeadlessException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
@@ -15,6 +14,7 @@ import modelo.Producto;
 import dao.ProductoDAO;
 import modelo.Proveedor;
 import dao.ProveedorDAO;
+import javax.swing.ImageIcon;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -47,7 +47,7 @@ public class ComprasForm extends javax.swing.JInternalFrame {
     int idpr = 0;
 
     ImageIcon icon = new ImageIcon("");
-
+    
     public ComprasForm() {
         initComponents();
         this.setFrameIcon(icon);

@@ -6,11 +6,11 @@
 package vistas;
 
 import java.util.List;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Categoria;
 import dao.CategoriaDAO;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -28,7 +28,7 @@ public class CategoriaForm extends javax.swing.JInternalFrame {
     int id;
 
     ImageIcon icon = new ImageIcon("");
-
+    
     public CategoriaForm() {
         initComponents();
         this.setFrameIcon(icon);

@@ -5,28 +5,11 @@ h = hecho
 producto:
 Actualizar todos los precio de un mismo proveedor
 
-
-LA CAJA SE DEBERIA ABRIR EN VENTA Y COMPRA
-
------------------
-caja = idcaja
-caja_vendedor = idCaja_vendedor,id_caja,id_vendedor,fecha
-vendedor = idvendedor
-ventas = idventa,idcaja,fecha
-flujoCaja = idFlujoCaja,idCaja,fecha,inicial,ingreso,egreso,venta,compra,total
-detalleFljoCaja = iddetalleCaja, idFLujoCaja, ingreso, egreso, descripcion.
-
-login: elejir caja. idvendedor se carga en caja_vendedor
-ventas: cambiar idvendedor por idcaja
-
-
-
-
-
-
 -----------------
 
+focuseables
 
+-----------------
 h-poder cambiar el precio desde comprasForm
 h-validar datos para que no se ingresen string en lugar de int
 h-en VenderForm buscar cliente, puede ser null
@@ -47,3 +30,4 @@ h-mostrar ingresos
 h-mostrar egresos
 h-Definir el precio de compra
 h-cuanto paga y vuelto
+h-login: elejir caja. idvendedor se carga en caja_vendedor

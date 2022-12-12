@@ -16,22 +16,24 @@ public class FlujoCaja {
     int idVendedor;
     String fecha;
     double inicial;
-    double ingrteso;
+    double ingreso;
     double egreso;
     double total;
+    int estado;
 
     public FlujoCaja() {
     }
 
-    public FlujoCaja(int idFLujoCaja, int idCaja, int idVendedor, String fecha, double inicial, double ingrteso, double egreso, double total) {
+    public FlujoCaja(int idFLujoCaja, int idCaja, int idVendedor, String fecha, double inicial, double ingreso, double egreso, double total, int estado) {
         this.idFLujoCaja = idFLujoCaja;
         this.idCaja = idCaja;
         this.idVendedor = idVendedor;
         this.fecha = fecha;
         this.inicial = inicial;
-        this.ingrteso = ingrteso;
+        this.ingreso = ingreso;
         this.egreso = egreso;
         this.total = total;
+        this.estado = estado;
     }
 
     public int getIdFLujoCaja() {
@@ -74,12 +76,12 @@ public class FlujoCaja {
         this.inicial = inicial;
     }
 
-    public double getIngrteso() {
-        return ingrteso;
+    public double getIngreso() {
+        return ingreso;
     }
 
-    public void setIngrteso(double ingrteso) {
-        this.ingrteso = ingrteso;
+    public void setIngreso(double ingrteso) {
+        this.ingreso = ingrteso;
     }
 
     public double getEgreso() {
@@ -98,4 +100,12 @@ public class FlujoCaja {
         this.total = total;
     }
 
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+   
 }

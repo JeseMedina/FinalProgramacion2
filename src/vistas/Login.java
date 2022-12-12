@@ -13,8 +13,15 @@ import javax.swing.JOptionPane;
 import modelo.Admin;
 import dao.AdminDAO;
 import Conexion.Conexion;
+import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.FlatPropertiesLaf;
 import modelo.Vendedor;
 import dao.VendedorDAO;
+import javax.swing.UIManager;
 
 /**
  *
@@ -196,6 +203,7 @@ public class Login extends javax.swing.JFrame {
                 a = adao.ValidarAdmin(contrasena, user);
                 if (a.getUser() != null && a.getContrasena() != null) {
                     tipo = "admin";
+                    nCaja = "0";
                     Principal p = new Principal();
                     p.setVisible(true);
                     dispose();
@@ -212,21 +220,13 @@ public class Login extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            UIManager.setLookAndFeel(new FlatDarkLaf());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        
+        
         //</editor-fold>
         //</editor-fold>
 

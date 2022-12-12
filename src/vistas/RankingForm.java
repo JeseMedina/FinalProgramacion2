@@ -6,15 +6,12 @@
 package vistas;
 
 import com.toedter.calendar.JDateChooser;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
-import modelo.Producto;
 import modelo.Ranking;
 import dao.RankingDAO;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -28,8 +25,8 @@ public class RankingForm extends javax.swing.JInternalFrame {
     RankingDAO rdao = new RankingDAO();
     Ranking r = new Ranking();
 
-    ImageIcon icon = new ImageIcon("");
     DefaultTableModel modelo = new DefaultTableModel();
+    ImageIcon icon = new ImageIcon("");
 
     public RankingForm() {
         initComponents();

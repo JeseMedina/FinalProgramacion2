@@ -8,10 +8,10 @@ package vistas;
 import com.toedter.calendar.JDateChooser;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import modelo.Egresos;
 import dao.EgresosDAO;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -26,8 +26,9 @@ public class EgresosForm extends javax.swing.JInternalFrame {
     EgresosDAO edao = new EgresosDAO();
     Egresos e = new Egresos();
     
-    ImageIcon icon = new ImageIcon("");
     DefaultTableModel modelo = new DefaultTableModel();
+    
+    ImageIcon icon = new ImageIcon("");
     
     public EgresosForm() {
         initComponents();
