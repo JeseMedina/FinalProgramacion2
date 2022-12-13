@@ -83,6 +83,7 @@ public class FlujoCajaDAO implements CRUD {
 
     public int abrirCaja(FlujoCaja fc) {
         String sql = "insert into flujocaja(idCaja,idVendedor,fecha,inicial,ingreso,egreso,total,estado) values(?,?,?,?,?,?,?,?)";
+        
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
@@ -90,10 +91,10 @@ public class FlujoCajaDAO implements CRUD {
             ps.setInt(2, fc.getIdVendedor());
             ps.setString(3, fc.getFecha());
             ps.setDouble(4, fc.getInicial());
-            ps.setDouble(5, 0);
-            ps.setDouble(6, 0);
-            ps.setDouble(7, 0);
-            ps.setInt(8, 1);
+            ps.setDouble(5, fc.getIngreso());
+            ps.setDouble(6, fc.getEgreso());
+            ps.setDouble(7, fc.getTotal());
+            ps.setInt(8, fc.getEstado());
             r = ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
@@ -132,7 +133,7 @@ public class FlujoCajaDAO implements CRUD {
         return f;
     }
     
-    public int detalleRetirarEfetivo(int idFlujo,double ingreso,double egreso,String descripcion){
+    public int detalleMovimientoEfetivo(int idFlujo,double ingreso,double egreso,String descripcion){
         int r = 0;
         String sql = "insert into detalleflujocaja (idFlujoCaja,ingreso,egreso,descripcion) values(?,?,?,?)";
         try {
@@ -150,18 +151,19 @@ public class FlujoCajaDAO implements CRUD {
         return r;
     }
     
-    public int retirarEfectivo(FlujoCaja fc) {
+    public int actualizarEfectivo(FlujoCaja fc) {
         int r = 0;
-        String sql = "update flujocaja set egreso=?,total=? where idCaja=? and idVendedor=? and fecha=? and estado=1";
+        String sql = "update flujocaja set ingreso=?,egreso=?,total=? where idCaja=? and idVendedor=? and fecha=? and estado=1";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
             
-            ps.setDouble(1, fc.getEgreso());
-            ps.setDouble(2, fc.getTotal());
-            ps.setInt(3, fc.getIdCaja());
-            ps.setInt(4, fc.getIdVendedor());
-            ps.setString(5, fc.getFecha());
+            ps.setDouble(1, fc.getIngreso());
+            ps.setDouble(2, fc.getEgreso());
+            ps.setDouble(3, fc.getTotal());
+            ps.setInt(4, fc.getIdCaja());
+            ps.setInt(5, fc.getIdVendedor());
+            ps.setString(6, fc.getFecha());
             r = ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
@@ -169,6 +171,21 @@ public class FlujoCajaDAO implements CRUD {
         return r;
     }
 
+    public int cerrarCaja(int idFLujoCaja,double total){
+        int r = 0;
+        String sql = "update flujocaja set estado=0, total=? where idFlujoCaja=?";
+        try {
+            con = cn.Conectar();
+            ps = con.prepareStatement(sql);
+            ps.setDouble(1, total);
+            ps.setDouble(2, idFLujoCaja);
+            r = ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return r;
+    }
+    
     @Override
     public List Listar() {
         List<FlujoCaja> lista = new ArrayList<>();
