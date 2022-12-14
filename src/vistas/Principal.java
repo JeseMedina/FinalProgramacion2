@@ -12,6 +12,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import javax.swing.JInternalFrame;
 import modelo.Caja;
 
@@ -36,6 +37,8 @@ public class Principal extends javax.swing.JFrame {
         privilegio(Login.tipo);
         cajaAbierta();
     }
+    
+    public static int idFlujo;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -104,6 +107,11 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1.add(menu);
 
         jMenu2.setText("Ventas");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
 
         menuGenerarVenta.setText("Generar Venta");
         menuGenerarVenta.addActionListener(new java.awt.event.ActionListener() {
@@ -248,14 +256,29 @@ public class Principal extends javax.swing.JFrame {
         fc.setFecha(anno + "-" + mes + "-" + dia);
         if (fcdao.cajaAbierta(fc)) {
             menuGenerarVenta.setEnabled(true);
+            fc.setIdCaja(idCaja);
+            fc.setIdVendedor(Login.idVendedor);
+            fc.setFecha(fecha());
+            List<FlujoCaja> flujo = fcdao.datosCajaAbierta(fc);
+            idFlujo = flujo.get(0).getIdFLujoCaja();
         } else {
             menuGenerarVenta.setEnabled(false);
+            idFlujo = 0;
         }
+    }
+    
+    String fecha() {
+        Calendar calendar = new GregorianCalendar();
+        int anno = calendar.get(Calendar.YEAR);
+        int mes = calendar.get(calendar.MONTH) + 1;
+        int dia = calendar.get(Calendar.DAY_OF_MONTH);
+
+        return (anno + "-" + mes + "-" + dia);
     }
 
     void privilegio(String tipo) {
         if (tipo == "admin") {
-            //jMenu2.setEnabled(false);
+            jMenu2.setEnabled(false);
         } else {
             jMenu3.setEnabled(false);
             jMenu4.setEnabled(false);
@@ -341,6 +364,10 @@ public class Principal extends javax.swing.JFrame {
         CajaForm c = new CajaForm();
         centrarVentana(c);
     }//GEN-LAST:event_menuCajaActionPerformed
+
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+        cajaAbierta();
+    }//GEN-LAST:event_jMenu2MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;

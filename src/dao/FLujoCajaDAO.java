@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.Caja;
+import modelo.DetalleFlujoCaja;
 import modelo.FlujoCaja;
 import vistas.Login;
 
@@ -201,6 +202,28 @@ public class FlujoCajaDAO implements CRUD {
                 fc.setIdVendedor(rs.getInt(3));
                 fc.setFecha(rs.getString((4)));
                 lista.add(fc);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return lista;
+    }
+    
+    public List listarDetalle() {
+        List<DetalleFlujoCaja> lista = new ArrayList<>();
+        String sql = "select * from detalleflujocaja";
+        try {
+            con = cn.Conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                DetalleFlujoCaja f = new DetalleFlujoCaja();
+                f.setIdDetalleFlujoCaja(rs.getInt(1));
+                f.setIdFlujocaja(rs.getInt(2));
+                f.setIngreso(rs.getDouble(3));
+                f.setEgreso(rs.getDouble((4)));
+                f.setDescripcion(rs.getString(5));
+                lista.add(f);
             }
         } catch (Exception e) {
             System.out.println(e);

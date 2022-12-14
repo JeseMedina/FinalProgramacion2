@@ -57,15 +57,22 @@ public class VentasDAO implements CRUD{
     }
     
     public int guardarVentas(Ventas v){
-        String sql = "insert into ventas(idCaja,idCliente,numeroSerie,FechaVentas,monto) values(?,?,?,?,?)";
+        String sql = "insert into ventas(idFlujoCaja,idCliente,numeroSerie,FechaVentas,monto) values(?,?,?,?,?)";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
-            ps.setInt(1, v.getIdCaja());
+            ps.setInt(1, v.getIdFlujoCaja());
             ps.setInt(2, v.getIdCliente());
             ps.setString(3, v.getSerie());
             ps.setString(4, v.getFecha());
             ps.setDouble(5, v.getMonto());
+            
+            System.out.println(v.getIdFlujoCaja());
+            System.out.println(v.getIdCliente());
+            System.out.println(v.getSerie());
+            System.out.println(v.getFecha());
+            System.out.println(v.getMonto());
+            
             r = ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
@@ -82,6 +89,12 @@ public class VentasDAO implements CRUD{
             ps.setInt(2, dv.getIdProducto());
             ps.setInt(3, dv.getCantidad());
             ps.setDouble(4, dv.getPreventa());
+            
+            System.out.println(dv.getIdventa());
+            System.out.println(dv.getIdProducto());
+            System.out.println(dv.getCantidad());
+            System.out.println(dv.getPreventa());
+            
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);

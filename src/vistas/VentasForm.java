@@ -1,5 +1,6 @@
 package vistas;
 
+import dao.CajaDAO;
 import java.awt.HeadlessException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -9,18 +10,16 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 import modelo.Cliente;
 import dao.ClienteDAO;
+import dao.FlujoCajaDAO;
 import modelo.DetalleVentas;
 import modelo.Producto;
 import dao.ProductoDAO;
 import modelo.Ventas;
 import dao.VentasDAO;
+import java.util.List;
 import javax.swing.ImageIcon;
-/*
-import modelo.CajaVendedor;
-import dao.CajaVendedorDAO;
 import modelo.Caja;
-import dao.CajaDAO;
-*/
+import modelo.FlujoCaja;
 
 /**
  *
@@ -38,7 +37,10 @@ public class VentasForm extends javax.swing.JInternalFrame {
     DetalleVentas dv = new DetalleVentas();
     Cliente c = new Cliente();
     ClienteDAO cdao = new ClienteDAO();
-    
+    FlujoCaja fc = new FlujoCaja();
+    FlujoCajaDAO fcdao = new FlujoCajaDAO();
+    Caja ca = new Caja();
+    CajaDAO caDAO = new CajaDAO();
 
     DefaultTableModel modelo = new DefaultTableModel();
     int idp;
@@ -49,7 +51,7 @@ public class VentasForm extends javax.swing.JInternalFrame {
     int idc = 0;
 
     ImageIcon icon = new ImageIcon("");
-    
+
     public VentasForm() {
         initComponents();
         this.setFrameIcon(icon);
@@ -58,7 +60,7 @@ public class VentasForm extends javax.swing.JInternalFrame {
         SpinnerNumberModel n = new SpinnerNumberModel();
         n.setMinimum(0);
         txtCantidad.setModel(n);
-        if (Login.nombreVendedor == null){
+        if (Login.nombreVendedor == null) {
             txtVendedor.setText("Admin");
         } else {
             txtVendedor.setText(Login.nombreVendedor);
@@ -502,6 +504,7 @@ public class VentasForm extends javax.swing.JInternalFrame {
             guardarVenta();
             guardarDetalle();
             actualizarStock();
+            actualizarCaja();
             JOptionPane.showMessageDialog(this, "Venta exitosa");
             nuevo();
             generarSerie();
@@ -619,7 +622,7 @@ public class VentasForm extends javax.swing.JInternalFrame {
         String fecha = txtFecha.getText();
         double monto = tpagar;
 
-        v.setIdCaja(Integer.parseInt(idv));
+        v.setIdFlujoCaja(Principal.idFlujo);
         v.setIdCliente(idc);
         v.setSerie(serie);
         v.setFecha(fecha);
@@ -725,6 +728,30 @@ public class VentasForm extends javax.swing.JInternalFrame {
             tpagar = tpagar + (cantidad * precio);
         }
         txtTotal.setText("" + tpagar);
+    }
+
+    void actualizarCaja() {
+        double montoDeposito = Double.parseDouble(txtTotal.getText());
+        int idCaja = caDAO.listarId(Integer.parseInt(Login.nCaja));
+        fc.setIdCaja(idCaja);
+        fc.setIdVendedor(Login.idVendedor);
+        fc.setFecha(txtFecha.getText());
+
+        FlujoCaja f = fcdao.efectivo(fc);
+        double total = f.getTotal() + montoDeposito;
+        double ingreso = f.getIngreso() + montoDeposito;
+        double egreso = f.getEgreso();
+
+        FlujoCaja deposito = new FlujoCaja();
+        deposito.setIdCaja(idCaja);
+        deposito.setIdVendedor(Login.idVendedor);
+        deposito.setFecha(txtFecha.getText());
+        deposito.setEgreso(egreso);
+        deposito.setIngreso(ingreso);
+        deposito.setTotal(total);
+        fcdao.actualizarEfectivo(deposito);
+
+        fcdao.detalleMovimientoEfetivo(Principal.idFlujo, montoDeposito, 0, "Venta");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

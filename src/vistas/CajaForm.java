@@ -14,6 +14,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import modelo.DetalleFlujoCaja;
 
 /**
  *
@@ -29,16 +31,32 @@ public class CajaForm extends javax.swing.JInternalFrame {
     Caja ca = new Caja();
     CajaDAO caDAO = new CajaDAO();
     int nCaja;
-    int idCaja = caDAO.listarId(nCaja);
-
+    DefaultTableModel modelo = new DefaultTableModel();
     ImageIcon icon = new ImageIcon("");
 
     public CajaForm() {
         initComponents();
         this.setFrameIcon(icon);
-        nCaja = Integer.parseInt(Login.nCaja);
         cajaAbierta();
         efectivo();
+        listar(fcdao.listarDetalle());
+    }
+    
+    void listar(List<DetalleFlujoCaja> lista) {
+        modelo = (DefaultTableModel) tabla.getModel();
+        Object[] ob = new Object[3];
+        for (int i = 0; i < lista.size(); i++) {
+            ob[0] = lista.get(i).getIngreso();
+            ob[1] = lista.get(i).getEgreso();
+            ob[2] = lista.get(i).getDescripcion();
+            modelo.addRow(ob);
+        }
+        tabla.setModel(modelo);
+    }
+    
+    void limpiarTabla() {
+        modelo.getDataVector().removeAllElements();
+        modelo.fireTableDataChanged();
     }
 
     void cajaAbierta() {
@@ -224,6 +242,7 @@ public class CajaForm extends javax.swing.JInternalFrame {
     }
 
     void efectivo() {
+        int idCaja = caDAO.listarId(Integer.parseInt(Login.nCaja));
         fc.setIdCaja(idCaja);
         fc.setIdVendedor(Login.idVendedor);
         fc.setFecha("" + fecha());
@@ -406,18 +425,25 @@ public class CajaForm extends javax.swing.JInternalFrame {
 
     private void btnAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirActionPerformed
         abrirCaja();
+        limpiarTabla();
+        listar(fcdao.listarDetalle());
     }//GEN-LAST:event_btnAbrirActionPerformed
 
     private void btnRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetirarActionPerformed
         retirarEfectivo();
+        limpiarTabla();
+        listar(fcdao.listarDetalle());
     }//GEN-LAST:event_btnRetirarActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         cerrarCaja();
+        limpiarTabla();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnDepositarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositarActionPerformed
         depositarEfectivo();
+        limpiarTabla();
+        listar(fcdao.listarDetalle());
     }//GEN-LAST:event_btnDepositarActionPerformed
 
 

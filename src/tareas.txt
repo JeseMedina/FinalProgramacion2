@@ -3,11 +3,13 @@ i = ideas
 h = hecho
 -----------------
 producto:
-Actualizar todos los precio de un mismo proveedor
-
+i-Actualizar todos los precio de un mismo proveedor
 -----------------
+-cambiar la estetica
+-form donde ver las cajas del dia
 
-focuseables
+focuseables y enter
+atajos?
 
 -----------------
 h-poder cambiar el precio desde comprasForm
@@ -31,3 +33,5 @@ h-mostrar egresos
 h-Definir el precio de compra
 h-cuanto paga y vuelto
 h-login: elejir caja. idvendedor se carga en caja_vendedor
+h-vincular venta con flujodecaja y detalle
+h-cajaform listar tabla
