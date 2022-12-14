@@ -84,7 +84,7 @@ public class FlujoCajaDAO implements CRUD {
 
     public int abrirCaja(FlujoCaja fc) {
         String sql = "insert into flujocaja(idCaja,idVendedor,fecha,inicial,ingreso,egreso,total,estado) values(?,?,?,?,?,?,?,?)";
-        
+
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
@@ -133,14 +133,14 @@ public class FlujoCajaDAO implements CRUD {
         }
         return f;
     }
-    
-    public int detalleMovimientoEfetivo(int idFlujo,double ingreso,double egreso,String descripcion){
+
+    public int detalleMovimientoEfetivo(int idFlujo, double ingreso, double egreso, String descripcion) {
         int r = 0;
         String sql = "insert into detalleflujocaja (idFlujoCaja,ingreso,egreso,descripcion) values(?,?,?,?)";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
-            
+
             ps.setInt(1, idFlujo);
             ps.setDouble(2, ingreso);
             ps.setDouble(3, egreso);
@@ -151,14 +151,14 @@ public class FlujoCajaDAO implements CRUD {
         }
         return r;
     }
-    
+
     public int actualizarEfectivo(FlujoCaja fc) {
         int r = 0;
         String sql = "update flujocaja set ingreso=?,egreso=?,total=? where idCaja=? and idVendedor=? and fecha=? and estado=1";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
-            
+
             ps.setDouble(1, fc.getIngreso());
             ps.setDouble(2, fc.getEgreso());
             ps.setDouble(3, fc.getTotal());
@@ -172,7 +172,7 @@ public class FlujoCajaDAO implements CRUD {
         return r;
     }
 
-    public int cerrarCaja(int idFLujoCaja,double total){
+    public int cerrarCaja(int idFLujoCaja, double total) {
         int r = 0;
         String sql = "update flujocaja set estado=0, total=? where idFlujoCaja=?";
         try {
@@ -186,7 +186,35 @@ public class FlujoCajaDAO implements CRUD {
         }
         return r;
     }
-    
+
+    public List listarFecha(String in, String fi) {
+        List<FlujoCaja> lista = new ArrayList<>();
+        String sql = "SELECT * from flujocaja where fecha >= ? and fecha <= ? order by idFlujoCaja desc";
+        try {
+            con = cn.Conectar();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, in);
+            ps.setString(2, fi);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                FlujoCaja fc = new FlujoCaja();
+                fc.setIdFLujoCaja(rs.getInt(1));
+                fc.setIdCaja(rs.getInt(2));
+                fc.setIdVendedor(rs.getInt(3));
+                fc.setFecha(rs.getString(4));
+                fc.setInicial(rs.getDouble(5));
+                fc.setIngreso(rs.getDouble(6));
+                fc.setEgreso(rs.getDouble(7));
+                fc.setTotal(rs.getDouble(8));
+                fc.setEstado(rs.getInt(9));
+                lista.add(fc);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return lista;
+    }
+
     @Override
     public List Listar() {
         List<FlujoCaja> lista = new ArrayList<>();
@@ -208,7 +236,7 @@ public class FlujoCajaDAO implements CRUD {
         }
         return lista;
     }
-    
+
     public List listarDetalle() {
         List<DetalleFlujoCaja> lista = new ArrayList<>();
         String sql = "select * from detalleflujocaja";

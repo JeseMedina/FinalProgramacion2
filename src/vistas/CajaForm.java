@@ -39,7 +39,6 @@ public class CajaForm extends javax.swing.JInternalFrame {
         this.setFrameIcon(icon);
         cajaAbierta();
         efectivo();
-        listar(fcdao.listarDetalle());
     }
     
     void listar(List<DetalleFlujoCaja> lista) {
@@ -75,6 +74,7 @@ public class CajaForm extends javax.swing.JInternalFrame {
             btnDepositar.setEnabled(true);
             btnRetirar.setEnabled(true);
             txtDinero.setEnabled(true);
+            listar(fcdao.listarDetalle());
         } else {
             btnCerrar.setEnabled(false);
             btnDepositar.setEnabled(false);

@@ -70,6 +70,24 @@ public class VendedorDAO implements CRUD {
         }
         return lista;
     }
+    
+    public String listarId(int id){
+        String nombre = null;
+        String sql = "select nombre from vendedor where idVendedor = ?";
+        try {
+            con = cn.Conectar();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()){
+                nombre = rs.getString(1);
+                
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return nombre;
+    }
 
     public List listarNombre(String nombre) {
         List<Vendedor> lista = new ArrayList<>();

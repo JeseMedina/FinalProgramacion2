@@ -18,21 +18,22 @@ import modelo.Caja;
  *
  * @author Jesé
  */
-public class CajaDAO implements CRUD{
+public class CajaDAO implements CRUD {
+
     Connection con;
     Conexion cn = new Conexion();
     PreparedStatement ps;
     ResultSet rs;
     int r = 0;
 
-    public int listarId(int nCaja){
+    public int listarId(int nCaja) {
         String sql = "select idCaja from caja where numeroCaja=?";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
             ps.setInt(1, nCaja);
             rs = ps.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 r = rs.getInt(1);
             }
         } catch (Exception e) {
@@ -40,7 +41,23 @@ public class CajaDAO implements CRUD{
         }
         return r;
     }
-    
+
+    public int listarN(int idCaja) {
+        String sql = "select numeroCaja from caja where idCaja=?";
+        try {
+            con = cn.Conectar();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idCaja);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                r = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return r;
+    }
+
     @Override
     public List Listar() {
         List<Caja> lista = new ArrayList<>();
@@ -49,7 +66,7 @@ public class CajaDAO implements CRUD{
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 Caja c = new Caja();
                 c.setIdCaja(rs.getInt(1));
                 c.setnCaja(rs.getInt(2));
@@ -75,5 +92,5 @@ public class CajaDAO implements CRUD{
     public void eliminar(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

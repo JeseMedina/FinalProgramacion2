@@ -41,11 +41,11 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../img/cart.png")));
         this.setLocationRelativeTo(null);
-        txtContrasena.setText("12345678");
-        txtUsuario.setText("jese");
-        //txtRol.setSelectedIndex(1);
-        //txtContrasena.setText("admin");
-        //txtUsuario.setText("admin");
+//        txtContrasena.setText("12345678");
+//        txtUsuario.setText("vendedor");
+        txtRol.setSelectedIndex(1);
+        txtContrasena.setText("admin");
+        txtUsuario.setText("admin");
     }
 
     Connection con;
