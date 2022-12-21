@@ -50,6 +50,26 @@ public class FlujoCajaDAO implements CRUD {
         }
         return false;
     }
+    
+    public int idCaja(FlujoCaja fc){
+        String sql = "select idflujocaja from flujocaja where idCaja=? and idVendedor=? and fecha=? and estado=1";
+        try {
+            con = cn.Conectar();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, fc.getIdCaja());
+            ps.setInt(2, fc.getIdVendedor());
+            ps.setString(3, fc.getFecha());
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
 
     public List datosCajaAbierta(FlujoCaja fc) {
         List<FlujoCaja> lista = new ArrayList<>();
@@ -237,12 +257,13 @@ public class FlujoCajaDAO implements CRUD {
         return lista;
     }
 
-    public List listarDetalle() {
+    public List listarDetalle(int id) {
         List<DetalleFlujoCaja> lista = new ArrayList<>();
-        String sql = "select * from detalleflujocaja";
+        String sql = "select * from detalleflujocaja where idFlujoCaja = ?";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
             rs = ps.executeQuery();
             while (rs.next()) {
                 DetalleFlujoCaja f = new DetalleFlujoCaja();

@@ -43,9 +43,9 @@ public class Login extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
 //        txtContrasena.setText("12345678");
 //        txtUsuario.setText("vendedor");
-        txtRol.setSelectedIndex(1);
-        txtContrasena.setText("admin");
-        txtUsuario.setText("admin");
+//        txtRol.setSelectedIndex(1);
+//        txtContrasena.setText("admin");
+//        txtUsuario.setText("admin");
     }
 
     Connection con;

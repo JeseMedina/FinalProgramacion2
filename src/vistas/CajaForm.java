@@ -58,6 +58,7 @@ public class CajaForm extends javax.swing.JInternalFrame {
         modelo.fireTableDataChanged();
     }
 
+    
     void cajaAbierta() {
         int idCaja = caDAO.listarId(Integer.parseInt(Login.nCaja));
 
@@ -74,7 +75,7 @@ public class CajaForm extends javax.swing.JInternalFrame {
             btnDepositar.setEnabled(true);
             btnRetirar.setEnabled(true);
             txtDinero.setEnabled(true);
-            listar(fcdao.listarDetalle());
+            listar(fcdao.listarDetalle(fcdao.idCaja(fc)));
         } else {
             btnCerrar.setEnabled(false);
             btnDepositar.setEnabled(false);
@@ -426,13 +427,13 @@ public class CajaForm extends javax.swing.JInternalFrame {
     private void btnAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirActionPerformed
         abrirCaja();
         limpiarTabla();
-        listar(fcdao.listarDetalle());
+        listar(fcdao.listarDetalle(fcdao.idCaja(fc)));
     }//GEN-LAST:event_btnAbrirActionPerformed
 
     private void btnRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetirarActionPerformed
         retirarEfectivo();
         limpiarTabla();
-        listar(fcdao.listarDetalle());
+        listar(fcdao.listarDetalle(fcdao.idCaja(fc)));
     }//GEN-LAST:event_btnRetirarActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
@@ -443,7 +444,7 @@ public class CajaForm extends javax.swing.JInternalFrame {
     private void btnDepositarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositarActionPerformed
         depositarEfectivo();
         limpiarTabla();
-        listar(fcdao.listarDetalle());
+        listar(fcdao.listarDetalle(fcdao.idCaja(fc)));
     }//GEN-LAST:event_btnDepositarActionPerformed
 
 

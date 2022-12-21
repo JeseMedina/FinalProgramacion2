@@ -67,12 +67,6 @@ public class VentasDAO implements CRUD{
             ps.setString(4, v.getFecha());
             ps.setDouble(5, v.getMonto());
             
-            System.out.println(v.getIdFlujoCaja());
-            System.out.println(v.getIdCliente());
-            System.out.println(v.getSerie());
-            System.out.println(v.getFecha());
-            System.out.println(v.getMonto());
-            
             r = ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
@@ -90,10 +84,6 @@ public class VentasDAO implements CRUD{
             ps.setInt(3, dv.getCantidad());
             ps.setDouble(4, dv.getPreventa());
             
-            System.out.println(dv.getIdventa());
-            System.out.println(dv.getIdProducto());
-            System.out.println(dv.getCantidad());
-            System.out.println(dv.getPreventa());
             
             ps.executeUpdate();
         } catch (Exception e) {
