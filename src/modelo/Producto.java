@@ -11,6 +11,7 @@ package modelo;
  */
 public class Producto {
     int id;
+    String codBarra;
     String nombre;
     double precio;
     int stock;
@@ -19,8 +20,9 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(int id, String nombre, double precio, int stock, String categoria) {
+    public Producto(int id, String codBarra, String nombre, double precio, int stock, String categoria) {
         this.id = id;
+        this.codBarra = codBarra;
         this.nombre = nombre;
         this.precio = precio;
         this.stock = stock;
@@ -35,6 +37,14 @@ public class Producto {
         this.id = id;
     }
 
+    public String getCodBarra() {
+        return codBarra;
+    }
+
+    public void setCodBarra(String codBarra) {
+        this.codBarra = codBarra;
+    }
+    
     public String getNombre() {
         return nombre;
     }

@@ -32,10 +32,10 @@ public class ProveedorForm extends javax.swing.JInternalFrame {
         initComponents();
         this.setFrameIcon(icon);
         listar(dao.Listar());
+        tabla.setAutoCreateRowSorter(true);
     }
 
     void listar(List<Proveedor> lista) {
-
         modelo = (DefaultTableModel) tabla.getModel();
         Object[] ob = new Object[5];
         for (int i = 0; i < lista.size(); i++) {
@@ -258,6 +258,7 @@ public class ProveedorForm extends javax.swing.JInternalFrame {
             tabla.getColumnModel().getColumn(0).setResizable(false);
             tabla.getColumnModel().getColumn(1).setResizable(false);
             tabla.getColumnModel().getColumn(2).setResizable(false);
+            tabla.getColumnModel().getColumn(3).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -319,16 +320,10 @@ public class ProveedorForm extends javax.swing.JInternalFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         agregar();
-        limpiarTabla();
-        listar(dao.Listar());
-        limpiar();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         actualizar();
-        limpiarTabla();
-        listar(dao.Listar());
-        limpiar();
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -383,7 +378,10 @@ public class ProveedorForm extends javax.swing.JInternalFrame {
             ob[2] = tel;
             ob[3] = razonSocial;
             dao.add(ob);
-        }else{
+            limpiarTabla();
+            listar(dao.Listar());
+            limpiar();
+        } else {
             JOptionPane.showMessageDialog(this, "Algunos campos solo reciben datos numericos");
         }
     }
@@ -407,12 +405,14 @@ public class ProveedorForm extends javax.swing.JInternalFrame {
                     ob[3] = razonSocial;
                     ob[4] = id;
                     dao.actualizar(ob);
+                    limpiarTabla();
+                    listar(dao.Listar());
+                    limpiar();
                 } catch (Exception e) {
                     System.out.println(e);
                 }
-                ;
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Algunos campos solo reciben datos numericos");
         }
     }

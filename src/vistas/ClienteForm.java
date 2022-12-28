@@ -28,11 +28,12 @@ public class ClienteForm extends javax.swing.JInternalFrame {
     int id;
 
     ImageIcon icon = new ImageIcon("");
-    
+
     public ClienteForm() {
         initComponents();
         this.setFrameIcon(icon);
         listar(dao.Listar());
+        tabla.setAutoCreateRowSorter(true);
     }
 
     void listar(List<Cliente> lista) {
@@ -317,16 +318,10 @@ public class ClienteForm extends javax.swing.JInternalFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         agregar();
-        limpiarTabla();
-        listar(dao.Listar());
-        limpiar();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         actualizar();
-        limpiarTabla();
-        listar(dao.Listar());
-        limpiar();
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -377,7 +372,10 @@ public class ClienteForm extends javax.swing.JInternalFrame {
             ob[1] = nombre;
             ob[2] = tel;
             dao.add(ob);
-        }else{
+            limpiarTabla();
+            listar(dao.Listar());
+            limpiar();
+        } else {
             JOptionPane.showMessageDialog(this, "Algunos campos solo reciben datos numericos");
         }
     }
@@ -399,12 +397,15 @@ public class ClienteForm extends javax.swing.JInternalFrame {
                     ob[2] = tel;
                     ob[3] = id;
                     dao.actualizar(ob);
+                    limpiarTabla();
+                    listar(dao.Listar());
+                    limpiar();
                 } catch (Exception e) {
                     System.out.println(e);
                 }
                 ;
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Algunos campos solo reciben datos numericos");
         }
     }

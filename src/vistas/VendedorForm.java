@@ -32,6 +32,7 @@ public class VendedorForm extends javax.swing.JInternalFrame {
         initComponents();
         this.setFrameIcon(icon);
         listar(dao.Listar());
+        tabla.setAutoCreateRowSorter(true);
     }
 
     void listar(List<Vendedor> lista) {
@@ -321,16 +322,10 @@ public class VendedorForm extends javax.swing.JInternalFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         agregar();
-        limpiarTabla();
-        listar(dao.Listar());
-        limpiar();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         actualizar();
-        limpiarTabla();
-        listar(dao.Listar());
-        limpiar();
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -386,6 +381,9 @@ public class VendedorForm extends javax.swing.JInternalFrame {
             ob[2] = tel;
             ob[3] = user;
             dao.add(ob);
+            limpiarTabla();
+            listar(dao.Listar());
+            limpiar();
         } else {
             JOptionPane.showMessageDialog(this, "Algunos campos solo reciben datos numericos");
         }
@@ -410,6 +408,9 @@ public class VendedorForm extends javax.swing.JInternalFrame {
                 ob[3] = user;
                 ob[4] = id;
                 dao.actualizar(ob);
+                limpiarTabla();
+                listar(dao.Listar());
+                limpiar();
             }
         } else {
             JOptionPane.showMessageDialog(this, "Algunos campos solo reciben datos numericos");

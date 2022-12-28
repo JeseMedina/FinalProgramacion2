@@ -39,6 +39,7 @@ public class CajaForm extends javax.swing.JInternalFrame {
         this.setFrameIcon(icon);
         cajaAbierta();
         efectivo();
+        tabla.setAutoCreateRowSorter(true);
     }
     
     void listar(List<DetalleFlujoCaja> lista) {

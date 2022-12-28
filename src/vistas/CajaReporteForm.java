@@ -46,6 +46,7 @@ public class CajaReporteForm extends javax.swing.JInternalFrame {
 
         txtInicio.setDateFormatString("yyyy-MM-dd");
         txtFinal.setDateFormatString("yyyy-MM-dd");
+        tabla.setAutoCreateRowSorter(true);
     }
 
     /**

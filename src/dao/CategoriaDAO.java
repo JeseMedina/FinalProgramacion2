@@ -67,7 +67,7 @@ public class CategoriaDAO implements CRUD{
     @Override
     public List Listar() {
         List<Categoria> lista = new ArrayList<>();
-        String sql = "select * from categoria";
+        String sql = "select * from categoria order by nombre asc";
         try {
             con = cn.Conectar();
             ps= con.prepareStatement(sql);

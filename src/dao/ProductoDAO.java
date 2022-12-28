@@ -49,15 +49,62 @@ public class ProductoDAO implements CRUD {
             rs = ps.executeQuery();
             while (rs.next()) {
                 p.setId(rs.getInt(1));
-                p.setNombre(rs.getString(2));
-                p.setPrecio(rs.getDouble(3));
-                p.setStock(rs.getInt(4));
-                p.setCategoria(rs.getString(5));
+                p.setCodBarra(rs.getString(2));
+                p.setNombre(rs.getString(3));
+                p.setPrecio(rs.getDouble(4));
+                p.setStock(rs.getInt(5));
+                p.setCategoria(rs.getString(6));
             }
         } catch (Exception e) {
             System.out.println(e);
         }
         return p;
+    }
+    
+    public Producto listarCod(String cod){
+        Producto p = new Producto();
+        String sql = "select * from producto where codBarra=?";
+        try {
+            con = cn.Conectar();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, cod);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                p.setId(rs.getInt(1));
+                p.setCodBarra(rs.getString(2));
+                p.setNombre(rs.getString(3));
+                p.setPrecio(rs.getDouble(4));
+                p.setStock(rs.getInt(5));
+                p.setCategoria(rs.getString(6));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return p;
+    }
+    
+    public List listarCodFiltro(String cod){
+        List<Producto> lista = new ArrayList();
+        String sql = "select * from producto where codBarra=?";
+        try {
+            con = cn.Conectar();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, cod);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Producto p = new Producto();
+                p.setId(rs.getInt(1));
+                p.setCodBarra(rs.getString(2));
+                p.setNombre(rs.getString(3));
+                p.setPrecio(rs.getDouble(4));
+                p.setStock(rs.getInt(5));
+                p.setCategoria(rs.getString(6));
+                lista.add(p);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return lista;
     }
 
     public List listarIdFiltro(int id) {
@@ -71,10 +118,11 @@ public class ProductoDAO implements CRUD {
             while (rs.next()) {
                 Producto p = new Producto();
                 p.setId(rs.getInt(1));
-                p.setNombre(rs.getString(2));
-                p.setPrecio(rs.getDouble(3));
-                p.setStock(rs.getInt(4));
-                p.setCategoria(rs.getString(5));
+                p.setCodBarra(rs.getString(2));
+                p.setNombre(rs.getString(3));
+                p.setPrecio(rs.getDouble(4));
+                p.setStock(rs.getInt(5));
+                p.setCategoria(rs.getString(6));
                 lista.add(p);
             }
         } catch (Exception e) {
@@ -94,10 +142,11 @@ public class ProductoDAO implements CRUD {
             while (rs.next()) {
                 Producto p = new Producto();
                 p.setId(rs.getInt(1));
-                p.setNombre(rs.getString(2));
-                p.setPrecio(rs.getDouble(3));
-                p.setStock(rs.getInt(4));
-                p.setCategoria(rs.getString(5));
+                p.setCodBarra(rs.getString(2));
+                p.setNombre(rs.getString(3));
+                p.setPrecio(rs.getDouble(4));
+                p.setStock(rs.getInt(5));
+                p.setCategoria(rs.getString(6));
                 lista.add(p);
             }
         } catch (Exception e) {
@@ -117,10 +166,11 @@ public class ProductoDAO implements CRUD {
             while (rs.next()) {
                 Producto p = new Producto();
                 p.setId(rs.getInt(1));
-                p.setNombre(rs.getString(2));
-                p.setPrecio(rs.getDouble(3));
-                p.setStock(rs.getInt(4));
-                p.setCategoria(rs.getString(5));
+                p.setCodBarra(rs.getString(2));
+                p.setNombre(rs.getString(3));
+                p.setPrecio(rs.getDouble(4));
+                p.setStock(rs.getInt(5));
+                p.setCategoria(rs.getString(6));
                 lista.add(p);
             }
         } catch (Exception e) {
@@ -132,25 +182,7 @@ public class ProductoDAO implements CRUD {
     @Override
     public int add(Object[] o) {
         int r = 0;
-        String sql = "insert into producto(nombre,precio,stock,categoria)values(?,?,?,?)";
-        try {
-            con = cn.Conectar();
-            ps = con.prepareStatement(sql);
-            ps.setObject(1, o[0]);
-            ps.setObject(2, o[1]);
-            ps.setObject(3, o[2]);
-            ps.setObject(4, o[3]);
-            r = ps.executeUpdate();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return r;
-    }
-
-    @Override
-    public int actualizar(Object[] o) {
-        int r = 0;
-        String sql = "update producto set nombre=?,precio=?,stock=?,categoria=? where idProducto=?";
+        String sql = "insert into producto(codBarra,nombre,precio,stock,categoria)values(?,?,?,?,?)";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
@@ -165,8 +197,27 @@ public class ProductoDAO implements CRUD {
         }
         return r;
     }
+
+    @Override
+    public int actualizar(Object[] o) {
+        int r = 0;
+        String sql = "update producto set codBarra=?,nombre=?,precio=?,stock=?,categoria=? where idProducto=?";
+        try {
+            con = cn.Conectar();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, o[0]);
+            ps.setObject(2, o[1]);
+            ps.setObject(3, o[2]);
+            ps.setObject(4, o[3]);
+            ps.setObject(5, o[4]);
+            ps.setObject(6, o[5]);
+            r = ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return r;
+    }
     public int actualizarPrecio(Producto p) {
-        Producto producto = new Producto();
         int r = 0;
         String sql = "update producto set precio=? where idProducto=?";
         try {

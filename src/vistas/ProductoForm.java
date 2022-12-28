@@ -37,24 +37,29 @@ public class ProductoForm extends javax.swing.JInternalFrame {
         this.setFrameIcon(icon);
         listar(dao.Listar());
         listarCategoria();
+        tabla.setAutoCreateRowSorter(true);
     }
 
     void listar(List<Producto> lista) {
         modelo = (DefaultTableModel) tabla.getModel();
-        Object[] ob = new Object[5];
+        Object[] ob = new Object[6];
         for (int i = 0; i < lista.size(); i++) {
             ob[0] = lista.get(i).getId();
-            ob[1] = lista.get(i).getNombre();
-            ob[2] = lista.get(i).getPrecio();
-            ob[3] = lista.get(i).getStock();
-            ob[4] = lista.get(i).getCategoria();
+            ob[1] = lista.get(i).getCodBarra();
+            ob[2] = lista.get(i).getNombre();
+            ob[3] = lista.get(i).getPrecio();
+            ob[4] = lista.get(i).getStock();
+            ob[5] = lista.get(i).getCategoria();
             modelo.addRow(ob);
         }
         tabla.setModel(modelo);
     }
 
     void filtrar() {
-        if ("ID".equals(txtFiltrar.getSelectedItem().toString())) {
+        if ("cod Barra".equals(txtFiltrar.getSelectedItem().toString())) {
+            List<Producto> lista = (List<Producto>) dao.listarCodFiltro(txtBuscar.getText());
+            listar(lista);
+        } else if ("ID".equals(txtFiltrar.getSelectedItem().toString())) {
             List<Producto> lista = (List<Producto>) dao.listarIdFiltro(Integer.parseInt(txtBuscar.getText()));
             listar(lista);
         } else {
@@ -64,10 +69,10 @@ public class ProductoForm extends javax.swing.JInternalFrame {
     }
 
     public void listarCategoria() {
+        cboCategoria.removeAllItems();
         List<Categoria> lista = daoCategoria.Listar();
         for (int i = 0; i < lista.size(); i++) {
             cboCategoria.addItem(lista.get(i).getNombre());
-
         }
     }
 
@@ -112,6 +117,8 @@ public class ProductoForm extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         txtStock = new javax.swing.JTextField();
         cboCategoria = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        txtCodBarra = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
@@ -189,6 +196,14 @@ public class ProductoForm extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Stock:");
 
+        cboCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cboCategoriaMouseClicked(evt);
+            }
+        });
+
+        jLabel6.setText("cod:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -197,46 +212,56 @@ public class ProductoForm extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNombre)
-                    .addComponent(cboCategoria, 0, 136, Short.MAX_VALUE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jLabel5)))
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNombre)
+                            .addComponent(cboCategoria, 0, 136, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-                    .addComponent(txtStock))
+                    .addComponent(txtCodBarra)
+                    .addComponent(txtPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(12, 12, 12)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(txtCodBarra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(cboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -246,11 +271,11 @@ public class ProductoForm extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Id", "Nombre", "Precio", "Stock", "Categoria"
+                "Id", "codBarra", "Nombre", "Precio", "Stock", "Categoria"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -265,14 +290,17 @@ public class ProductoForm extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tabla);
         if (tabla.getColumnModel().getColumnCount() > 0) {
             tabla.getColumnModel().getColumn(0).setResizable(false);
+            tabla.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tabla.getColumnModel().getColumn(1).setResizable(false);
             tabla.getColumnModel().getColumn(2).setResizable(false);
             tabla.getColumnModel().getColumn(3).setResizable(false);
             tabla.getColumnModel().getColumn(4).setResizable(false);
+            tabla.getColumnModel().getColumn(5).setResizable(false);
         }
 
         jLabel1.setText("Filtrar por:");
 
-        txtFiltrar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "Nombre" }));
+        txtFiltrar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "cod Barra", "ID", "Nombre" }));
 
         btnFiltrar.setText("Filtrar");
         btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
@@ -351,11 +379,13 @@ public class ProductoForm extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Debe seleccionar una fila");
         } else {
             id = Integer.parseInt(tabla.getValueAt(fila, 0).toString());
-            String nombre = tabla.getValueAt(fila, 1).toString();
-            String precio = tabla.getValueAt(fila, 2).toString();
-            String stock = tabla.getValueAt(fila, 3).toString();
-            String categoria = tabla.getValueAt(fila, 4).toString();
+            String codBarra = tabla.getValueAt(fila, 1).toString();
+            String nombre = tabla.getValueAt(fila, 2).toString();
+            String precio = tabla.getValueAt(fila, 3).toString();
+            String stock = tabla.getValueAt(fila, 4).toString();
+            String categoria = tabla.getValueAt(fila, 5).toString();
 
+            txtCodBarra.setText(codBarra);
             txtNombre.setText(nombre);
             txtPrecio.setText(precio);
             txtStock.setText(stock);
@@ -377,16 +407,10 @@ public class ProductoForm extends javax.swing.JInternalFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         actualizar();
-        limpiarTabla();
-        listar(dao.Listar());
-        limpiar();
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         agregar();
-        limpiarTabla();
-        listar(dao.Listar());
-        limpiar();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
@@ -399,19 +423,39 @@ public class ProductoForm extends javax.swing.JInternalFrame {
         listar(dao.Listar());
     }//GEN-LAST:event_btnFiltrarTodoActionPerformed
 
+    private void cboCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboCategoriaMouseClicked
+        listarCategoria();
+    }//GEN-LAST:event_cboCategoriaMouseClicked
+
+    String verificarCodBarra() {
+        String codBarra;
+        if ("".equals(txtCodBarra.getText())) {
+            codBarra = "-";
+        } else {
+            codBarra = txtCodBarra.getText();
+        }
+        return codBarra;
+    }
+
     void agregar() {
         if (esNumerico(txtStock.getText()) && esDouble(txtPrecio.getText())) {
+
             String nombre = txtNombre.getText();
+            String codBarra = verificarCodBarra();
             double precio = Double.parseDouble(txtPrecio.getText());
             int stock = Integer.parseInt(txtStock.getText());
             String categoria = cboCategoria.getSelectedItem().toString();
 
-            Object[] ob = new Object[4];
-            ob[0] = nombre;
-            ob[1] = precio;
-            ob[2] = stock;
-            ob[3] = categoria;
+            Object[] ob = new Object[5];
+            ob[0] = codBarra;
+            ob[1] = nombre;
+            ob[2] = precio;
+            ob[3] = stock;
+            ob[4] = categoria;
             dao.add(ob);
+            limpiarTabla();
+            listar(dao.Listar());
+            limpiar();
         } else {
             JOptionPane.showMessageDialog(this, "Algunos campos solo reciben datos numericos");
         }
@@ -424,17 +468,22 @@ public class ProductoForm extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Debe seleccionar una fila");
             } else {
                 String nombre = txtNombre.getText();
+                String codBarra = verificarCodBarra();
                 double precio = Double.parseDouble(txtPrecio.getText());
                 int stock = Integer.parseInt(txtStock.getText());
                 String categoria = cboCategoria.getSelectedItem().toString();
 
-                Object[] ob = new Object[5];
-                ob[0] = nombre;
-                ob[1] = precio;
-                ob[2] = stock;
-                ob[3] = categoria;
-                ob[4] = id;
+                Object[] ob = new Object[6];
+                ob[0] = codBarra;
+                ob[1] = nombre;
+                ob[2] = precio;
+                ob[3] = stock;
+                ob[4] = categoria;
+                ob[5] = id;
                 dao.actualizar(ob);
+                limpiarTabla();
+                listar(dao.Listar());
+                limpiar();
             }
         } else {
             JOptionPane.showMessageDialog(this, "Algunos campos solo reciben datos numericos");
@@ -452,6 +501,7 @@ public class ProductoForm extends javax.swing.JInternalFrame {
 
     void limpiar() {
         txtNombre.setText("");
+        txtCodBarra.setText("");
         txtPrecio.setText("");
         txtStock.setText("");
         cboCategoria.setSelectedIndex(0);
@@ -476,12 +526,14 @@ public class ProductoForm extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabla;
     private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtCodBarra;
     private javax.swing.JComboBox<String> txtFiltrar;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPrecio;

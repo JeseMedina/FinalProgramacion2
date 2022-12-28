@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-12-2022 a las 14:34:43
+-- Tiempo de generación: 29-12-2022 a las 00:34:19
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.2
 
@@ -240,7 +240,9 @@ INSERT INTO `detalleflujocaja` (`idDetalleFlujoCaja`, `idFlujoCaja`, `ingreso`, 
 (46, 23, 700, 0, 'Venta'),
 (47, 23, 5100, 0, 'Venta'),
 (48, 26, 0, 100, 'Retiro'),
-(49, 26, 2715, 0, 'Venta');
+(49, 26, 2715, 0, 'Venta'),
+(50, 27, 900, 0, 'Venta'),
+(51, 28, 2000, 0, 'Venta');
 
 -- --------------------------------------------------------
 
@@ -374,7 +376,10 @@ INSERT INTO `detalleventa` (`idDetalleVenta`, `idVenta`, `idProducto`, `cantidad
 (111, 62, 2, 3, 2700),
 (112, 63, 2, 1, 900),
 (113, 63, 3, 1, 15),
-(114, 63, 6, 2, 1800);
+(114, 63, 6, 2, 1800),
+(115, 64, 2, 1, 900),
+(116, 65, 17, 1, 200),
+(117, 65, 2, 2, 1800);
 
 -- --------------------------------------------------------
 
@@ -415,7 +420,9 @@ INSERT INTO `flujocaja` (`idFlujoCaja`, `idCaja`, `idVendedor`, `fecha`, `inicia
 (23, 3, 1, '2022-12-20', 1000, 38080, 0, 38080, 0),
 (24, 3, 1, '2022-12-21', 100, 0, 0, 100, 1),
 (25, 2, 1, '2022-12-21', 100, 0, 0, 0, 0),
-(26, 2, 1, '2022-12-21', 1000, 2715, 100, 3615, 1);
+(26, 2, 1, '2022-12-21', 1000, 2715, 100, 3615, 1),
+(27, 3, 1, '2022-12-28', 1000, 900, 0, 900, 0),
+(28, 2, 1, '2022-12-28', 100, 2000, 0, 2100, 1);
 
 -- --------------------------------------------------------
 
@@ -425,6 +432,7 @@ INSERT INTO `flujocaja` (`idFlujoCaja`, `idCaja`, `idVendedor`, `fecha`, `inicia
 
 CREATE TABLE `producto` (
   `idProducto` int(11) NOT NULL,
+  `codBarra` varchar(13) NOT NULL DEFAULT '-',
   `nombre` varchar(244) NOT NULL,
   `precio` double NOT NULL,
   `stock` int(11) NOT NULL,
@@ -435,15 +443,17 @@ CREATE TABLE `producto` (
 -- Volcado de datos para la tabla `producto`
 --
 
-INSERT INTO `producto` (`idProducto`, `nombre`, `precio`, `stock`, `categoria`) VALUES
-(1, 'Carne Molida', 800, 73, 'Carniceria'),
-(2, 'Ayudin', 900, 21, 'Limpieza'),
-(3, 'Banana', 15, 14, 'Verduleria'),
-(4, 'Manzana', 100, 191, 'Verduleria'),
-(5, 'Hamburguesa', 500, 1, 'Carniceria'),
-(6, 'Aceite de Girasol', 900, 71, 'Comestibles'),
-(7, 'Arroz', 250, 91, 'Comestibles'),
-(8, 'Atún', 600, 85, 'Verduleria');
+INSERT INTO `producto` (`idProducto`, `codBarra`, `nombre`, `precio`, `stock`, `categoria`) VALUES
+(1, '-', 'Carne Molida', 800, 73, 'Carniceria'),
+(2, '-', 'Ayudin', 900, 18, 'Limpieza'),
+(3, '-', 'Banana', 15, 14, 'Verduleria'),
+(4, '-', 'Manzana', 100, 191, 'Verduleria'),
+(5, '-', 'Hamburguesa', 500, 1, 'Carniceria'),
+(6, '-', 'Aceite de Girasol', 900, 71, 'Comestibles'),
+(7, '-', 'Arroz', 250, 91, 'Comestibles'),
+(8, '-', 'Atún', 600, 85, 'Verduleria'),
+(16, '-', 'Coca', 500, 10, 'Bebidas'),
+(17, 'pepsi', 'pepsi', 200, 9, 'Bebidas');
 
 -- --------------------------------------------------------
 
@@ -568,7 +578,9 @@ INSERT INTO `ventas` (`idVenta`, `idFlujoCaja`, `idCliente`, `numeroSerie`, `fec
 (60, 23, 0, 56, '2022-12-20', 2700),
 (61, 23, 0, 57, '2022-12-20', 700),
 (62, 23, 0, 58, '2022-12-20', 5100),
-(63, 26, 1, 59, '2022-12-21', 2715);
+(63, 26, 1, 59, '2022-12-21', 2715),
+(64, 27, 0, 60, '2022-12-28', 900),
+(65, 28, 0, 61, '2022-12-28', 2000);
 
 --
 -- Índices para tablas volcadas
@@ -682,7 +694,7 @@ ALTER TABLE `caja`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
@@ -706,25 +718,25 @@ ALTER TABLE `detallecompra`
 -- AUTO_INCREMENT de la tabla `detalleflujocaja`
 --
 ALTER TABLE `detalleflujocaja`
-  MODIFY `idDetalleFlujoCaja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `idDetalleFlujoCaja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT de la tabla `detalleventa`
 --
 ALTER TABLE `detalleventa`
-  MODIFY `idDetalleVenta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+  MODIFY `idDetalleVenta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 
 --
 -- AUTO_INCREMENT de la tabla `flujocaja`
 --
 ALTER TABLE `flujocaja`
-  MODIFY `idFlujoCaja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `idFlujoCaja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
@@ -736,13 +748,13 @@ ALTER TABLE `proveedor`
 -- AUTO_INCREMENT de la tabla `vendedor`
 --
 ALTER TABLE `vendedor`
-  MODIFY `idVendedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idVendedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `idVenta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `idVenta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- Restricciones para tablas volcadas

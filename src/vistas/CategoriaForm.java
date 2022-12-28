@@ -28,11 +28,12 @@ public class CategoriaForm extends javax.swing.JInternalFrame {
     int id;
 
     ImageIcon icon = new ImageIcon("");
-    
+
     public CategoriaForm() {
         initComponents();
         this.setFrameIcon(icon);
         listar(dao.Listar());
+        tabla.setAutoCreateRowSorter(true);
     }
 
     void listar(List<Categoria> lista) {
@@ -194,6 +195,10 @@ public class CategoriaForm extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(tabla);
+        if (tabla.getColumnModel().getColumnCount() > 0) {
+            tabla.getColumnModel().getColumn(0).setResizable(false);
+            tabla.getColumnModel().getColumn(1).setResizable(false);
+        }
 
         txtFiltrar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "Nombre" }));
 
@@ -273,16 +278,10 @@ public class CategoriaForm extends javax.swing.JInternalFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         agregar();
-        limpiarTabla();
-        listar(dao.Listar());
-        limpiar();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         actualizar();
-        limpiarTabla();
-        listar(dao.Listar());
-        limpiar();
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -325,6 +324,9 @@ public class CategoriaForm extends javax.swing.JInternalFrame {
         ob[0] = nombre;
 
         dao.add(ob);
+        limpiarTabla();
+        listar(dao.Listar());
+        limpiar();
     }
 
     void actualizar() {
@@ -338,6 +340,9 @@ public class CategoriaForm extends javax.swing.JInternalFrame {
             ob[0] = nombre;
             ob[1] = id;
             dao.actualizar(ob);
+            limpiarTabla();
+            listar(dao.Listar());
+            limpiar();
         }
     }
 
