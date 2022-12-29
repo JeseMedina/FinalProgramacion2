@@ -57,6 +57,8 @@ public class Principal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         menuGenerarVenta = new javax.swing.JMenuItem();
         menuCaja = new javax.swing.JMenuItem();
+        menuBuscarCliente = new javax.swing.JMenuItem();
+        menuBuscarProducto = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         menuCategoria = new javax.swing.JMenuItem();
         menuProducto = new javax.swing.JMenuItem();
@@ -72,6 +74,8 @@ public class Principal extends javax.swing.JFrame {
         menuActualizar = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         menuGenerarCompra = new javax.swing.JMenuItem();
+        menuBuscarClienteC = new javax.swing.JMenuItem();
+        menuBuscarProductoC = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ventana Principal");
@@ -129,6 +133,22 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(menuCaja);
+
+        menuBuscarCliente.setText("Buscar Cliente");
+        menuBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuBuscarClienteActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuBuscarCliente);
+
+        menuBuscarProducto.setText("Buscar Producto");
+        menuBuscarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuBuscarProductoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuBuscarProducto);
 
         jMenuBar1.add(jMenu2);
 
@@ -234,6 +254,22 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenu5.add(menuGenerarCompra);
 
+        menuBuscarClienteC.setText("Buscar Cliente");
+        menuBuscarClienteC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuBuscarClienteCActionPerformed(evt);
+            }
+        });
+        jMenu5.add(menuBuscarClienteC);
+
+        menuBuscarProductoC.setText("Buscar Producto");
+        menuBuscarProductoC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuBuscarProductoCActionPerformed(evt);
+            }
+        });
+        jMenu5.add(menuBuscarProductoC);
+
         jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
@@ -265,6 +301,8 @@ public class Principal extends javax.swing.JFrame {
         fc.setFecha(anno + "-" + mes + "-" + dia);
         if (fcdao.cajaAbierta(fc)) {
             menuGenerarVenta.setEnabled(true);
+            menuBuscarCliente.setEnabled(true);
+            menuBuscarProducto.setEnabled(true);
             fc.setIdCaja(idCaja);
             fc.setIdVendedor(Login.idVendedor);
             fc.setFecha(fecha());
@@ -272,6 +310,8 @@ public class Principal extends javax.swing.JFrame {
             idFlujo = flujo.get(0).getIdFLujoCaja();
         } else {
             menuGenerarVenta.setEnabled(false);
+            menuBuscarCliente.setEnabled(false);
+            menuBuscarProducto.setEnabled(false);
             idFlujo = 0;
         }
     }
@@ -383,6 +423,26 @@ public class Principal extends javax.swing.JFrame {
         centrarVentana(c);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void menuBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBuscarProductoActionPerformed
+        BuscarProductosForm b = new BuscarProductosForm();
+        centrarVentana(b);
+    }//GEN-LAST:event_menuBuscarProductoActionPerformed
+
+    private void menuBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBuscarClienteActionPerformed
+        BuscarClientesForm b = new BuscarClientesForm();
+        centrarVentana(b);
+    }//GEN-LAST:event_menuBuscarClienteActionPerformed
+
+    private void menuBuscarClienteCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBuscarClienteCActionPerformed
+        BuscarClientesForm b = new BuscarClientesForm();
+        centrarVentana(b);
+    }//GEN-LAST:event_menuBuscarClienteCActionPerformed
+
+    private void menuBuscarProductoCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBuscarProductoCActionPerformed
+        BuscarProductosForm b = new BuscarProductosForm();
+        centrarVentana(b);
+    }//GEN-LAST:event_menuBuscarProductoCActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -393,6 +453,10 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu menu;
     private javax.swing.JMenuItem menuActualizar;
+    private javax.swing.JMenuItem menuBuscarCliente;
+    private javax.swing.JMenuItem menuBuscarClienteC;
+    private javax.swing.JMenuItem menuBuscarProducto;
+    private javax.swing.JMenuItem menuBuscarProductoC;
     private javax.swing.JMenuItem menuCaja;
     private javax.swing.JMenuItem menuCategoria;
     private javax.swing.JMenuItem menuCerrar;
