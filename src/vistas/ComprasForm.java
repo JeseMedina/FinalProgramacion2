@@ -476,7 +476,6 @@ public class ComprasForm extends javax.swing.JInternalFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         if (!txtTotal.getText().equals("")) {
             int confirmacion = JOptionPane.showConfirmDialog(this, "¿Desea cancelar la Compra?");
-            System.out.println(confirmacion);
             if (confirmacion == 0) {
                 nuevo();
                 fecha();

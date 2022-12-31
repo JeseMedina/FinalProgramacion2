@@ -1,6 +1,6 @@
 package vistas;
 
-
+import com.sun.org.apache.bcel.internal.generic.IFNULL;
 import com.toedter.calendar.JDateChooser;
 import dao.CajaDAO;
 import dao.FlujoCajaDAO;
@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Caja;
 import modelo.FlujoCaja;
@@ -19,7 +20,6 @@ import modelo.FlujoCaja;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Jesé
@@ -34,11 +34,10 @@ public class CajaReporteForm extends javax.swing.JInternalFrame {
     Caja c = new Caja();
     CajaDAO cdao = new CajaDAO();
     VendedorDAO vdao = new VendedorDAO();
-    
-    
+
     DefaultTableModel modelo = new DefaultTableModel();
     ImageIcon icon = new ImageIcon("");
-    
+
     public CajaReporteForm() {
         initComponents();
         this.setFrameIcon(icon);
@@ -58,35 +57,19 @@ public class CajaReporteForm extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        txtInicio = new com.toedter.calendar.JDateChooser();
-        jLabel2 = new javax.swing.JLabel();
-        txtFinal = new com.toedter.calendar.JDateChooser();
-        btnGenerar = new javax.swing.JButton();
-        btnTodo = new javax.swing.JToggleButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        btnTodo = new javax.swing.JToggleButton();
+        btnGenerar = new javax.swing.JButton();
+        txtFinal = new com.toedter.calendar.JDateChooser();
+        jLabel2 = new javax.swing.JLabel();
+        txtInicio = new com.toedter.calendar.JDateChooser();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Reporte de Caja");
-
-        jLabel1.setText("Inicio:");
-
-        jLabel2.setText("Final:");
-
-        btnGenerar.setText("Generar");
-        btnGenerar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGenerarActionPerformed(evt);
-            }
-        });
-
-        btnTodo.setText("Todo");
-        btnTodo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTodoActionPerformed(evt);
-            }
-        });
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -125,11 +108,31 @@ public class CajaReporteForm extends javax.swing.JInternalFrame {
             tabla.getColumnModel().getColumn(4).setPreferredWidth(80);
         }
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        btnTodo.setText("Todo");
+        btnTodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTodoActionPerformed(evt);
+            }
+        });
+
+        btnGenerar.setText("Generar");
+        btnGenerar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Final:");
+
+        jLabel1.setText("Inicio:");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -138,49 +141,84 @@ public class CajaReporteForm extends javax.swing.JInternalFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGenerar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(btnTodo)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnGenerar)
+                        .addComponent(btnTodo))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtInicio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtFinal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jButton1.setText("Cerrar Cajas");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnGenerar)
-                        .addComponent(btnTodo))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(txtInicio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(txtFinal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     void listar(String in, String fi) {
-        List<FlujoCaja> lista = fcdao.listarFecha(in, fi);
+        List<FlujoCaja> lista;
+        if ("0".equals(in) && "0".equals(fi)) {
+            lista = fcdao.Listar();
+        } else {
+            lista = fcdao.listarFecha(in, fi);
+        }
         modelo = (DefaultTableModel) tabla.getModel();
         Object[] ob = new Object[5];
         String estado;
         for (int i = 0; i < lista.size(); i++) {
             int nCaja = cdao.listarN(lista.get(i).getIdCaja());
             String vendedor = vdao.listarId(lista.get(i).getIdVendedor());
-            
-            if (0 == lista.get(i).getEstado()){
+
+            if (0 == lista.get(i).getEstado()) {
                 estado = "Cerrada";
-            }else {
+            } else {
                 estado = "Abierta";
             }
-            
-              
+
             ob[0] = lista.get(i).getFecha();
             ob[1] = nCaja;
             ob[2] = vendedor;
@@ -190,14 +228,14 @@ public class CajaReporteForm extends javax.swing.JInternalFrame {
         }
         tabla.setModel(modelo);
     }
-    
+
     void limpiarTabla() {
         for (int i = 0; i < modelo.getRowCount(); i++) {
             modelo.removeRow(i);
             i = i - 1;
         }
     }
-    
+
     public String getFecha(JDateChooser jd) {
         SimpleDateFormat Formato = new SimpleDateFormat("yyyy-MM-dd");
         if (jd.getDate() != null) {
@@ -206,20 +244,32 @@ public class CajaReporteForm extends javax.swing.JInternalFrame {
             return null;
         }
     }
-    
+
     private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
-        String in = getFecha(txtInicio);
-        String fi = getFecha(txtFinal);
-        limpiarTabla();
-        listar(in, fi);
+        if (getFecha(txtInicio) == null || getFecha(txtFinal) == null) {
+            JOptionPane.showMessageDialog(this, "Selecciona fechas");
+        } else {
+            String in = getFecha(txtInicio);
+            String fi = getFecha(txtFinal);
+            limpiarTabla();
+            listar(in, fi);
+        }
     }//GEN-LAST:event_btnGenerarActionPerformed
 
     private void btnTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTodoActionPerformed
         limpiarTabla();
-        listar(fecha(),fecha());
         txtInicio.setDate(null);
         txtFinal.setDate(null);
+        listar("0", "0");
     }//GEN-LAST:event_btnTodoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        limpiarTabla();
+        txtInicio.setDate(null);
+        txtFinal.setDate(null);
+        cerrarCajas();
+        listar(fecha(), fecha());
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     String fecha() {
         Calendar calendar = new GregorianCalendar();
@@ -229,12 +279,21 @@ public class CajaReporteForm extends javax.swing.JInternalFrame {
 
         return (anno + "-" + mes + "-" + dia);
     }
+    
+    void cerrarCajas(){
+        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Desea cerrar todas las cajas?");
+        if (confirmacion == 0){
+            fcdao.cerrarCajas();
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGenerar;
     private javax.swing.JToggleButton btnTodo;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabla;
     private com.toedter.calendar.JDateChooser txtFinal;

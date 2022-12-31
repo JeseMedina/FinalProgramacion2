@@ -206,6 +206,19 @@ public class FlujoCajaDAO implements CRUD {
         }
         return r;
     }
+    
+    public int cerrarCajas(){
+        int r = 0;
+        String sql = "update flujocaja set estado=0";
+        try {
+            con = cn.Conectar();
+            ps = con.prepareStatement(sql);
+            r = ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return r;
+    }
 
     public List listarFecha(String in, String fi) {
         List<FlujoCaja> lista = new ArrayList<>();
@@ -248,7 +261,12 @@ public class FlujoCajaDAO implements CRUD {
                 fc.setIdFLujoCaja(rs.getInt(1));
                 fc.setIdCaja(rs.getInt(2));
                 fc.setIdVendedor(rs.getInt(3));
-                fc.setFecha(rs.getString((4)));
+                fc.setFecha(rs.getString(4));
+                fc.setInicial(rs.getDouble(5));
+                fc.setIngreso(rs.getDouble(6));
+                fc.setEgreso(rs.getDouble(7));
+                fc.setTotal(rs.getDouble(8));
+                fc.setEstado(rs.getInt(9));
                 lista.add(fc);
             }
         } catch (Exception e) {
