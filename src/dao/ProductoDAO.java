@@ -217,6 +217,36 @@ public class ProductoDAO implements CRUD {
         }
         return r;
     }
+    
+    public int actualizarPrecioCategoria(double incremento, String categoria){
+        int r = 0;
+        String sql = "update producto set precio = ceiling(precio * ?) WHERE categoria =?";
+        try {
+            con = cn.Conectar();
+            ps = con.prepareStatement(sql);
+            ps.setDouble(1, incremento);
+            ps.setString(2, categoria);
+            r = ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return r;
+    }
+    
+    public int actualizarPrecios(double incremento){
+        int r = 0;
+        String sql = "update producto set precio = ceiling(precio * ?)";
+        try {
+            con = cn.Conectar();
+            ps = con.prepareStatement(sql);
+            ps.setDouble(1, incremento);
+            r = ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return r;
+    }
+    
     public int actualizarPrecio(Producto p) {
         int r = 0;
         String sql = "update producto set precio=? where idProducto=?";
