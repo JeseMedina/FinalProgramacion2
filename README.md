@@ -19,4 +19,4 @@ Esta aplicación de escritorio para mercado cuenta con dos perfiles: vendedor y 
 
 ## Licencia
 MIT Public License v3.0
-No puede usarse comencialmente.
+No puede usarse comercialmente.
