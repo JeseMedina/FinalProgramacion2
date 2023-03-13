@@ -15,7 +15,7 @@ Esta aplicación de escritorio para mercado cuenta con dos perfiles: vendedor y 
 
 * [skajese@gmail.com](skajese@gmail.com)
 * [LinkedIn](https://www.linkedin.com/in/jesemedina/?original_referer=)
-* [Porfolio web]()
+* [Porfolio web](https://jesemedina.netlify.app/)
 
 ## Licencia
 MIT Public License v3.0
